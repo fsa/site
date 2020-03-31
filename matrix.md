@@ -145,10 +145,18 @@ _matrix._tcp.example.com. 3600 IN SRV 10 5 8448 matrix.example.com.
 В таком случае, например, при использовании веб-клиента https://riot.im/app/ теперь достаточно ввести имя пользователя @мой_пользователь:мой_домен и клиент автоматически получит данные о сервере для вашего домена. Указав верный пароль вы уже можете присоединиться к общению не выполняя настроек сервера вручную. 
 
 ## Скрипт обновления клиента Riot
-Для обновления клиента Riot на своём сервере использую скрипт, который был размещён в одной из комнат Matrix.
-Кто точно его разместил, я найти не смог, но более ранний, не доработанный, вариант скрипта был представлен @murz:ru-matrix.org.
+Для обновления клиента Riot на своём сервере использую скрипт, доступный по адресу https://gist.github.com/MurzNN/ee64f98ab2e71b886c41d55594e5dd9e:
 ```bash
 #!/bin/bash
+
+###################################################################
+# Script for check new version of Riot from.
+# https://api.github.com/repos/vector-im/riot-web/releases/latest
+# and download new version, if update is avaiable
+#
+# https://gist.github.com/MurzNN/ee64f98ab2e71b886c41d55594e5dd9e
+#
+###################################################################
 
 # Directory where Riot files must be placed
 DIRECTORY_INSTALL=/var/www/matrix/htdocs
@@ -160,9 +168,14 @@ command -v tar >/dev/null 2>&1 || { echo "You need to install "tar" package for 
 command -v jq >/dev/null 2>&1 || { echo "You need to install "jq" package for this script: sudo apt install jq"; exit 1; }
 
 VERSION_INSTALLED=`cat $DIRECTORY_INSTALL/version`
-VERSION_LATEST=`curl -s https://api.github.com/repos/vector-im/riot-web/releases/latest | jq -r '.name' | sed s/v//` || { echo "Error checkinv last Riot version!"; exit 1; }
+VERSION_LATEST=`curl -s https://api.github.com/repos/vector-im/riot-web/releases/latest | jq -r '.name' | sed s/v//` || { echo "Error checking last Riot version!"; exit 1; }
 
-if [ "$VERSION_INSTALLED" != "$VERSION_LATEST" ]; then
+if ( [[ -z "$VERSION_LATEST" ]] || [ "$VERSION_LATEST" == "null" ] ); then
+  echo "Error! Received bad version number from https://api.github.com/repos/vector-im/riot-web/releases/latest: $VERSION_LATEST"
+  exit
+fi
+
+if ( [ "$VERSION_INSTALLED" != "$VERSION_LATEST" ] ); then
   echo "Riot installed version is $VERSION_INSTALLED, in GitHub releases found fresher version: $VERSION_LATEST - updating..."
   DL_URL=`curl -s https://api.github.com/repos/vector-im/riot-web/releases/latest | jq -r '.assets[0].browser_download_url'`
   curl -L -o $DIRECTORY_TMP/riot-latest.tar.gz $DL_URL || { echo "Error downloading riot-latest.tar.gz"; exit 1; }
@@ -174,6 +187,6 @@ if [ "$VERSION_INSTALLED" != "$VERSION_LATEST" ]; then
   rm $DIRECTORY_TMP/riot-latest.tar.gz
   echo "Riot succesfully updated from $VERSION_INSTALLED to $VERSION_LATEST";
 else
-  echo "Current Riot version $VERSION_INSTALLED is last, no update found, exiting.";
+  echo "Installed Riot version $VERSION_INSTALLED, last is $VERSION_LATEST - no update found, exiting.";
 fi
 ```

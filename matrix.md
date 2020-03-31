@@ -47,12 +47,12 @@ server {
     index index.html;
 
     location /_matrix {
-	      proxy_pass http://127.0.0.1:8008;
+	proxy_pass http://127.0.0.1:8008;
         proxy_set_header X-Forwarded-For $remote_addr;
 
-	      # set_real_ip_from xx.xx.xx.xx;
-	      # real_ip_header X-Forwarded-For;
-	      # real_ip_recursive on;
+	# set_real_ip_from xx.xx.xx.xx;
+	# real_ip_header X-Forwarded-For;
+	# real_ip_recursive on;
     }
     include acme.conf;
 }
@@ -76,10 +76,10 @@ server {
 При смене IP адреса вашего matrix-synapse пропишите в настройках nginx на старом сервере следующее:
 ```nginx
     location / {
-	      proxy_pass https://yy.yy.yy.yy;
-	      proxy_set_header Host $host;
-	      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-	      proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass https://yy.yy.yy.yy;
+	proxy_set_header Host $host;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_set_header X-Real-IP $remote_addr;
     }
 ```
 В качестве адреса сервера yy.yy.yy.yy необходимо указать IP адрес вашего нового сервера (не доменное имя, т.к. оно может всё ещё указывать на текущий сервер).

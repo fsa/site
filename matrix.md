@@ -96,3 +96,84 @@ location ~ /.well-known/acme-challenge/(.*) {
 ```bash
 certbot certonly --webroot -w /var/letsencrypt -d matrix.example.com
 ```
+
+## Настройка обнаружения сервера на домене
+Сообшить другим серверам о том, что на вашем домене функциониурет сервер Matrix можно двумя способами:
+1. с помощью записей SRV в DNS;
+2. с помощью специальных унифицированных идентификаторов ресурсов (URIs) в папке /.well-known/.
+
+Первый способ не требует вмешательства в работу основного веб-сайта. Для идентификации Matrix сервера создаётся запись SRV _matrix._tcp:
+```
+_matrix._tcp.example.com. 3600 IN SRV 10 5 8448 matrix.example.com.
+```
+Она содержит номер порта (8448) и адрес сервера, который отвечает за сервер Matrix (matrix.example.com.).
+
+Для использования второго способа требуется настроить вдачу JSON ответа по адресу /.well-known/matrix/server:
+```json
+{
+    "m.server": "matrix.example.com:8448"
+}
+```
+В ответе должнен содержаться парамер m.server, который указывает на имя домена и порт сервера. Реализовать подобный ответ на сервере nginx можно с помощью следующей вставки в конфигурацию хоста:
+```nginx
+    location /.well-known/matrix/server {
+        default_type application/json;
+        return 200 '{"m.server": "matrix.example.com:8448"}';
+    }
+```
+Как показала практика, URIs имеют приоритет над записями DNS. В этом можно убедиться с помощью диагностического сайта https://federationtester.matrix.org/, который при наличии корректного ответа /.well-known/matrix/server не обращается к записям SRV.
+
+Обнаружение сервера клиентами можно осуществить через ответ сервера по адресу /.well-known/matrix/client:
+```json
+{
+    "m.homeserver": {
+        "base_url":"https://matrix.example.com"
+    }
+}
+```
+Параметр m.homeserver говорит клиентам о местоположении сервера Matrix. В этом же ответе можно указать сервер идентификации с помощью параметра m.indentity_server. Подробнее об этом можно прочитать в документации к протоколу https://matrix.org/docs/spec/client_server/latest#id175.
+
+Поскольку в качестве клиентов может использоваться веб-приложение, браузеры могут ограничить чтение файла JSON с помощью механизма безопасности CORS. Чтобы этого не происходило, необходимо в ответе добавить заголовки, разрешающие использовать эти данные на других доменах. Всё вышеописанное можно реализовать в nginx с помощью следующего фрагмента конфигурации: 
+```nginx
+    location /.well-known/matrix/client {
+	add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET';
+        default_type application/json;
+        return 200 '{"m.homeserver":{"base_url":"https://matrix.example.com"}}';
+    }
+```
+В таком случае, например, при использовании веб-клиента https://riot.im/app/ теперь достаточно ввести имя пользователя @мой_пользователь:мой_домен и клиент автоматически получит данные о сервере для вашего домена. Указав верный пароль вы уже можете присоединиться к общению не выполняя настроек сервера вручную. 
+
+## Скрипт обновления клиента Riot
+Для обновления клиента Riot на своём сервере использую скрипт, который был размещён в одной из комнат Matrix.
+Кто точно его разместил, я найти не смог, но более ранний, не доработанный, вариант скрипта был представлен @murz:ru-matrix.org.
+```bash
+#!/bin/bash
+
+# Directory where Riot files must be placed
+DIRECTORY_INSTALL=/var/www/matrix/htdocs
+# Directory for temp files - must be different that install directory!
+DIRECTORY_TMP=/tmp
+
+command -v curl >/dev/null 2>&1 || { echo "You need to install "curl" package for this script: sudo apt install curl"; exit 1; }
+command -v tar >/dev/null 2>&1 || { echo "You need to install "tar" package for this script: sudo apt install tar"; exit 1; }
+command -v jq >/dev/null 2>&1 || { echo "You need to install "jq" package for this script: sudo apt install jq"; exit 1; }
+
+VERSION_INSTALLED=`cat $DIRECTORY_INSTALL/version`
+VERSION_LATEST=`curl -s https://api.github.com/repos/vector-im/riot-web/releases/latest | jq -r '.name' | sed s/v//` || { echo "Error checkinv last Riot version!"; exit 1; }
+
+if [ "$VERSION_INSTALLED" != "$VERSION_LATEST" ]; then
+  echo "Riot installed version is $VERSION_INSTALLED, in GitHub releases found fresher version: $VERSION_LATEST - updating..."
+  DL_URL=`curl -s https://api.github.com/repos/vector-im/riot-web/releases/latest | jq -r '.assets[0].browser_download_url'`
+  curl -L -o $DIRECTORY_TMP/riot-latest.tar.gz $DL_URL || { echo "Error downloading riot-latest.tar.gz"; exit 1; }
+  tar -xf $DIRECTORY_TMP/riot-latest.tar.gz -C $DIRECTORY_TMP/
+  find $DIRECTORY_INSTALL/* -not -name 'config*.json' -delete
+  rm -f $DIRECTORY_INSTALL/config.sample.json
+  mv $DIRECTORY_TMP/riot-v$VERSION_LATEST/* $DIRECTORY_INSTALL/
+  rm -rf $DIRECTORY_TMP/riot-v$VERSION_LATEST
+  rm $DIRECTORY_TMP/riot-latest.tar.gz
+  echo "Riot succesfully updated from $VERSION_INSTALLED to $VERSION_LATEST";
+else
+  echo "Current Riot version $VERSION_INSTALLED is last, no update found, exiting.";
+fi
+```

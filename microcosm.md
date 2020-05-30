@@ -1,0 +1,35 @@
+---
+title: Microcosm и переход с lighttpd на nginx
+keywords: lighttpd, microcosm, mod_rewrite, nginx, OSM
+posted: 2012-03-20
+---
+Решил я заменить lighttpd на nginx. Уж очень часто его нахваливают в интернете. Всё прошло гладко. Но споткнулся о небольшое приложение для хранения геоданных - <a href="http://wiki.openstreetmap.org/wiki/Microcosm">Microcosm</a>. Написано оно на php. В документации есть только вариант для Apache:
+```apache
+# BEGIN Microcosm
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /api/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /m/microcosm.php [L]
+</IfModule>
+
+# END Microcosm
+```
+В lighttpd настройка была ещё проще:
+```lighttpd
+url.rewrite = ( "^/api/(.*)$" => "m/microcosm.php/$1" )
+```
+С nginx получилось немного сложнее:
+```nginx
+location /api/ {
+   fastcgi_pass unix:/var/spool/php-fpm.socket; # PHP-FPM socket
+   root   /home/web/htdocs/m/; # Microcosm directory
+   fastcgi_index microcosm.php;
+   include        fastcgi_params;
+   fastcgi_split_path_info ^(\/api)(.*)$;
+   fastcgi_param SCRIPT_FILENAME $document_root/microcosm.php;
+   fastcgi_param PATH_INFO $fastcgi_path_info;
+}
+```
+Используется директива fastcgi_split_path_info. Она разбивает адресную строку запроса на 2 части, которые описаны регулярными выражениями. Первая часть — это /api, попадает в переменную $fastcgi_script_name. Вторая часть попадает в $fastcgi_path_info. Её и скармливаем php в виде $_SERVER['PATH_INFO']. Эта переменная и используется в microcosm.

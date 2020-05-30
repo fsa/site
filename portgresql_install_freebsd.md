@@ -1,5 +1,6 @@
 ---
-title: "Установка PostgreSQL на FreeBSD"
+title: Установка PostgreSQL на FreeBSD
+keywords: FreeBSD, postgresql
 posted: 2010-10-02
 ---
 Заметка написана для тех, кто первый раз встречается с PostgreSQL, но, возможно, имел дело с MySQL. Рассчитана в основном для начинающих пользователей, хотя и требует некоторого знания особенностей работы с FreeBSD.

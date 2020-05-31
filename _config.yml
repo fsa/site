@@ -1,1 +1,6 @@
+name: Блог FSA
+url: https://blog.tavda.org
+sass:
+  sass_dir: _includes/sass
+  style: compressed
 theme: jekyll-theme-cayman

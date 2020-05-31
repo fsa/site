@@ -1,6 +1,6 @@
 ---
 title: Опыт установки сервера Matrix Synapse
-posted: 2020-04-01 02:24
+posted: 2020-03-31 13:27
 ---
 # Опыт установки сервера Matrix Synapse
 

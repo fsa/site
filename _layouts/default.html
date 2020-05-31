@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
+<title>{% if page.title %}{{ page.title :: site.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#527779">
 <link rel="stylesheet" href="https://shcc.ru/styles.css">

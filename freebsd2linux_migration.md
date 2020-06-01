@@ -1,7 +1,8 @@
 ---
+layout: post
 title: Миграция с FreeBSD на Linux
-keywords: FreeBSD, Linux, Ubuntu
-posted: 2010-10-02
+date: 2010-10-02 04:05:00 +0500
+categories: FreeBSD, Linux, Ubuntu
 ---
 Для миграции нужен внешний USB HDD достаточного размера для переноса нужной информации.
 

@@ -20,6 +20,8 @@
 
 [Миграция с FreeBSD на Linux](freebsd2linux_migration)
 
+[Настройка модема Huawei E150 в Ubuntu](ubuntu_huawei_e150)
+
 [Установка PostgreSQL на FreeBSD](postgresql_install_freebsd)
 
 [Взгляд на проблему пиратства](pirates)

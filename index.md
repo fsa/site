@@ -1,5 +1,5 @@
 ---
-layout: posts
+layout: index
 ---
 [Опыт установки сервера Matrix Synapse](matrix)
 

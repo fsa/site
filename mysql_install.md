@@ -1,7 +1,8 @@
 ---
+layout: post
 title: Памятка по MySQL/MariaDB
-keywords: MariaDB, mysql
-posted: 2018-04-23
+date: 2018-04-23 07:33:00 +0700
+categories: MariaDB, mysql
 ---
 Периодически возникает необходимость первоначальной настройки MySQL. Опишу несколько особенностей современной настройки.
 

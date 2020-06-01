@@ -3,4 +3,4 @@ url: https://blog.tavda.org
 sass:
   sass_dir: _includes/sass
   style: compressed
-
+permalink: /:title

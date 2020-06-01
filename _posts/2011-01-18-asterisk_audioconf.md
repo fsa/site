@@ -1,7 +1,8 @@
 ---
+layout: post
 title: Настраиваем аудиоконференции в Asterisk 1.8.2 на FreeBSD 8.1
-keywords: аудиоконференции, asterisk, dahdi, FreeBSD
-posted: 2011-01-18
+date: 2011-01-19 11:58:00 +0500
+categories: аудиоконференции, asterisk, dahdi, FreeBSD
 ---
 С выходом версии Asterisk 1.8.2 решил разобраться в настройке конференций. Так же как и ранее решил использовать модуль app_meetme.
 

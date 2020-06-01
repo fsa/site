@@ -1,3 +1,6 @@
+---
+layout: posts
+---
 [Опыт установки сервера Matrix Synapse](matrix)
 
 [О переходе с Windows на Linux](windows2linux)

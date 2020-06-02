@@ -5,3 +5,4 @@ sass:
   sass_dir: _includes/sass
   style: compressed
 permalink: /:title
+paginate: 5

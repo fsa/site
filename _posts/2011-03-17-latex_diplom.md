@@ -38,7 +38,7 @@ categories: LaTeX
 \ESKDsignature{ФЗО 210406.052 ПЗ} % Шифр
 \ESKDletter{}{У}{} % Литеры
 
-\renewcommand{\ESKDtheTitleFieldX}{%
+\renewcommand{\ESKDtheTitleFieldX}{
 Новосибирск
 
 \ESKDtheYear~г.} % Шаблон для отображения в нижней части титульного листа города и года

@@ -1,0 +1,87 @@
+//@import "colors";
+$theme-colors-primary: #527779;
+
+html,body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+html {
+    height: 100%;
+}
+body {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    font-family: "Open Sans", "Sans-Serif";
+    font-size: 1rem;
+}
+header {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 1rem 0;
+    background-color: $theme-colors-primary;
+    color: white;
+    a {
+        color: white;
+        text-decoration: none;
+    }
+}
+main {
+    flex: 1;
+    color: black;
+    padding: 1rem;
+    h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 1.5rem;
+    }
+    p {
+        text-align: justify;
+    }
+}
+footer {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 1rem 0;
+    background-color: $theme-colors-primary;
+    color: white;
+    p {
+        margin: 0;
+        padding: 0 1rem;
+    }
+    a {
+        color: white;
+        text-decoration: none;
+    }
+}
+
+.listrow {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    width: 100%;
+    .listitem {
+        padding: 0 1rem;
+    }
+}
+@media (max-width: 600px) {
+    .listrow {
+        flex-direction: column;
+        .listitem {
+            margin: 0;
+            padding: 0.5rem 0;
+            text-align: center;
+        }
+    }
+}
+
+.screenshot-desktop {
+    max-width: 99%;
+    border: 2px $theme-colors-primary solid;
+}
+
+@import "highlight";

@@ -24,9 +24,9 @@ cp etc/dongle.conf /usr/local/etc/asterisk
 interval=15
 
 [datacard0]
-context=incoming-utel           ; Контекст для вызовов. Должен быть описан в дайлплане.
-audio=/dev/cuaU0.1  ; Порт для аудио
-data=/dev/cuaU0.2  ; Порт для команд
+context=incoming-utel ; Контекст для вызовов. Должен быть описан в дайлплане.
+audio=/dev/cuaU0.1    ; Порт для аудио
+data=/dev/cuaU0.2     ; Порт для команд
 group=1
 rxgain=3
 txgain=3
@@ -80,24 +80,24 @@ SMS принимаются и в файл /var/log/asterisk/sms.txt. Может�
 Если Asterisk сообщает, что хранилище SMS переполнено: [datacard0] SMS storage is full - удалите все сообщения с помощью команды в консоли Asterisk:
 ```bash
 # asterisk -r
-tavda*CLI&gt; dongle cmd datacard0 AT+CMGD=1,4
+tavda*CLI> dongle cmd datacard0 AT+CMGD=1,4
 ```
 Теперь можем проверить работоспособность входящего канала:
 ```
-tavda*CLI&gt; dongle show devices
+tavda*CLI> dongle show devices
 ID           Group State      RSSI Mode Submode Provider Name  Model      Firmware          IMEI      IMSI      Number        
 datacard1    1     Free       18   3    3       MOTIV      E150       11.609.82.02.143  35210...  25035...  Unknown       
 datacard0    1     Free       27   3    3       Utel       E150       11.609.82.02.143  35210...  25017...  +790225...
 ```
 Если есть желание, то можно задать номер телефона для сим-карт с номером Unknown:
 ```
-tavda*CLI&gt; dongle cmd datacard1 AT+CPBS=\&quot;ON\&quot;
-tavda*CLI&gt; dongle cmd datacard1 AT+CPBW=1,\&quot;+795273XXXXX\&quot;,145
+tavda*CLI> dongle cmd datacard1 AT+CPBS=\"ON\"
+tavda*CLI> dongle cmd datacard1 AT+CPBW=1,\"+795273XXXXX\",145
 ```
 Для осуществления исходящих вызовов через модемы просто используйте соответствующие шаблоны в extensions.ael:
 ```
-_89022[5-7]XXXXX =&gt; Dial(Dongle/datacard0/${EXTEN});
-_895304XXXXX =&gt; Dial(Dongle/datacard1/${EXTEN});
+_89022[5-7]XXXXX => Dial(Dongle/datacard0/${EXTEN});
+_895304XXXXX => Dial(Dongle/datacard1/${EXTEN});
 ```
 Вот собственно и всё. Больше ничего от модема мне не требовалось. При желании можете найти варианты настройки Asterisk для работы с модемом Huawei E1550. Настройки дайлплана для E150 будут аналогичные.
 

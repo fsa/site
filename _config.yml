@@ -6,3 +6,4 @@ sass:
   style: compressed
 permalink: /:title
 paginate: 5
+paginate_path: "/page:num"

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: portmaster: управляем портами во FreeBSD
+title: "portmaster: управляем портами во FreeBSD"
 date: 2011-02-19 14:21:00 +0500
 tags: FreeBSD portmaster
 ---

@@ -105,3 +105,6 @@ create database fsa owner fsa;
 ```
 
 /var/lib/pgsql/data/pg_hba.conf установить md5
+
+# Полезные ссылки
+[1]: https://russianfedora.github.io/FAQ/ Неофициальный FAQ по Fedora

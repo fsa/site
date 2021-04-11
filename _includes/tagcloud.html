@@ -1,6 +1,6 @@
 <ul id="cloud">
 {% for tag in site.tags %}
   {% assign curTag = tag | first | slugize %}
-  <li style="font-size: {{ tag | last | size | times: 100 | divided_by: site.tags.size}}rem">{{ curTag }}</li>
+  <li style="font-size: 1.{{ tag | last | size | times: 100 | divided_by: site.tags.size}}rem">{{ curTag }}</li>
 {% endfor %}
 </ul>

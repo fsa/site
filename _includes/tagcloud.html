@@ -1,5 +1,6 @@
 <ul id="cloud">
 {% for tag in site.tags %}
-  <li>{{ tag }}</li>
+  {% assign curTag = tag | first | slugize %}
+  <li>{{ curTag }}</li>
 {% endfor %}
 </ul>

@@ -2,7 +2,7 @@
 layout: post
 title: Умный дом на основе Majordomo
 date: 2018-04-03 17:43:00 +0700
-categories: MajorDoMo nginx
+tags: [MajorDoMo nginx]
 ---
 # Это черновик!
 

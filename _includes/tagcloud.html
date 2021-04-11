@@ -1,8 +1,5 @@
 <ul id="cloud">
 {% for tag in site.tags %}
-  <li><a href="/tags/{{ tag[0] }}/" 
-    style="font-size: {{ tag[1] | size | times: 2 | plus: 10 }}px">
-        {{ tag[0] }} | 
-    </a></li>
+  <li><a href="/tags/{{ tag[0] }}/" style="font-size: {{ tag[1] | size | times: 2 | plus: 10 }}px">{{ tag[0] }}</a></li>
 {% endfor %}
 </ul>

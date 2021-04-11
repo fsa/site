@@ -4,9 +4,8 @@ title: Умный дом на основе Majordomo
 date: 2018-04-03 17:43:00 +0700
 tags: [MajorDoMo, nginx]
 ---
-# Это черновик!
 
-Это черновая версия публикации. Возможно в ней содержатся неточности и отсутствуют некоторые поясняющие фрагменты. Даже не смотря на это текст можно использовать в качестве знакомства с принципами работы Majordomo.
+Это черновая версия публикации. Возможно в ней содержатся неточности и отсутствуют некоторые поясняющие фрагменты. Даже не смотря на это текст можно использовать в качестве знакомства с принципами работы Majordomo. Публикация, скорее всего, не будет дорабатываться, т.к. после изучения исходных текстов данного продукта я отказался от его использования.
 
 # Системные требования
 Что нужно для работы majordomo:
@@ -303,38 +302,3 @@ WantedBy=multi-user.target
 
 # Итог
 После всех этих настроек мы получаем работающий сервер Majordomo. Рекомендую после проведения настроек перезагрузить сервер. Таким образом можно убедиться, что все сервисы стартуют успешно.
-<!--
-server {
-    listen 80 default_server;
-    server_name  m.fsa.su;
-    
-    charset utf-8;
-    
-    access_log  /var/log/nginx/majordomo_access.log;
-    error_log  /var/log/nginx/majordomo_error.log;
-
-    root   /home/fsa/www/majordomo/htdocs;
-
-    index index.php;
-    
-    location / {
-        try_files $uri $uri/ @smarthome;
-    }
-
-    location ~ \.php$ {
- fastcgi_pass php-fpm;
-        fastcgi_index index.php;
- fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        include fastcgi_params;
-    }
-
-    location @smarthome {
-        fastcgi_pass php-fpm;
-        include /etc/nginx/fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME $document_root/nf.php;
-        fastcgi_param SCRIPT_NAME     /nf.php;
-        fastcgi_param QUERY_STRING    $args;
-    }
-}
--->
-```

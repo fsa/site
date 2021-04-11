@@ -2,7 +2,7 @@
 layout: post
 title: Fedora, новый опыт в Linux
 date: 2021-04-10 00:33:45 +0700
-tags: [linux, Fedora, nginx, PostgreSQL, PHP]
+tags: [Linux, Fedora, nginx, PostgreSQL, PHP]
 ---
 
 # Первое знакомство

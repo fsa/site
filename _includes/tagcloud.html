@@ -1,6 +1,6 @@
 <ul id="cloud">
 {% for tag in site.tags %}
-  <li>{{ curTag }}<a href="/tags/{{ tag[0] }}/" 
+  <li><a href="/tags/{{ tag[0] }}/" 
     style="font-size: {{ tag[1] | size | times: 2 | plus: 10 }}px">
         {{ tag[0] }} | 
     </a></li>

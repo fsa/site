@@ -2,7 +2,7 @@
 layout: post
 title: Настойка связки FreeBSD 8.2+Asterisk 1.8.5+модем Huawei E150
 date: 2011-07-22 16:07:00 +0500
-categories: Asterisk, FreeBSD, Huawei E150
+tags: [Asterisk, FreeBSD, Huawei E150]
 ---
 Речь пойдёт о связке FreeBSD 8.2+Asterisk 1.8+модем Huawei E150. Цель - принимать входящие и осуществлять исходящие вызовы и принимать SMS. Модем Huawei E150 практически аналогичен модему Huawei E1550. Единственное различие - отсутствие кардридера для MisroSD-карт памяти.
 

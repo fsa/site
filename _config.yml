@@ -2,7 +2,7 @@ title: Блог FSA
 url: https://blog.tavda.org
 email: fsa@tavda.info
 sass:
-  sass_dir: css
+  sass_dir: _scss
   style: compressed
 permalink: /:title
 paginate: 5

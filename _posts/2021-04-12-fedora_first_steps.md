@@ -29,9 +29,19 @@ sudo dnf config-manager --set-disabled fedora-cisco-openh264
 ```
 sudo dnf install --nogpgcheck https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 ```
-# Порт 5355 LLMNR
 
-У меня изначально на Fedora был открыт порт 5355. который числится как LLMNR. Можете погуглить что это такое, и если вам оно не нужно, то можно просто отключить этот сервис через файл /etc/systemd/resolved.conf установив LLMNR=no.
+# Встроенный брендмауэр Firewalld
+
+Firewalld - это динамически управляемый брендмауэр с поддержкой зон для интерфейсов. Для управления им можно использовать консольную утилиту firewall-cmd или графическую firewall-config. Каждый из сетевых интерфейсов может относиться к определённой зоне. Для каждой зоны действуют свои правила файервола.
+
+Для создания постоянных правил необходимо указывать ключ --permanent. Имя зоны необходимо указывать в ключе --zone. Без явного указания зоны, правила будут изменены в зоне по умолчанию.
+```
+firewall-cmd --permanent --zone=internal --add-port=80/tcp
+```
+Правило не начинает применяться сразу, а требует перезагрузки файервола или списка правил. Например, можно мягко перезагрузить правила, при этом открытые соединения не будут разорваны:
+```
+firewall-cmd --reload
+```
 
 # Настройка NGINX
 
@@ -75,7 +85,7 @@ restorecon -R -v /home/fsa/www
 semanage fcontext -C -l
 ```
 
-# SELinux
+# Создание собственного модуля SELinux
 ```
 cat /var/log/audit/audit.log | audit2allow -m myapp > myapp.te
 ```
@@ -93,11 +103,11 @@ semodule -r myapp
 ```
 dnf install postgresql-server
 ```
-Инициализация базы данных:
+Инициализация сервера базы данных:
 ```
 postgresql-setup initdb
 ```
-
+Создаём пользователя, который будет иметь права доступа суперпользователя, иметь возможность создавать новых пользователей и базы данных.
 ```
 su postges
 psql
@@ -107,6 +117,10 @@ create database fsa owner fsa;
 ```
 
 /var/lib/pgsql/data/pg_hba.conf установить md5
+
+# Порт 5355 LLMNR
+
+У меня изначально на Fedora был открыт порт 5355. который числится как LLMNR. Можете погуглить что это такое, и если вам оно не нужно, то можно просто отключить этот сервис через файл /etc/systemd/resolved.conf установив LLMNR=no.
 
 # Полезные ссылки
 [Неофициальный FAQ по Fedora][1]

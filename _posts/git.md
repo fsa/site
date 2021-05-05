@@ -8,18 +8,12 @@ git config --global core.editor vim
 git config --global core.pager 'less -RFX'
 ```
 Алиасы
-```
-[alias]
-  ci = commit
-  br = branch
-  co = checkout
-  st = status --short
-```
-
-```
-[url "ssh://172.17.22.3/~/git/"]
-        insteadOf = fsaserv:
-        pushInsteadOf = fsaserv:
+```basg
+git config --global alias.ci commit
+git config --global alias.br branch
+git config --global alias.co checkout
+git config --global alias.st "status --short"
+git config --global alias.hist "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
 ```
 Удалить локально заданное имя или секцию user в .git
 ```bash

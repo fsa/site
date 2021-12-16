@@ -42,6 +42,10 @@ main {
     p {
         text-align: justify;
     }
+    img {
+        max-width: 99%;
+        border: 2px $theme-colors-primary solid;
+    }
 }
 footer {
     display: flex;

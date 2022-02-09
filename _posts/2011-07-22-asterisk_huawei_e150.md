@@ -65,17 +65,17 @@ callingpres=allowed_passed_screen
 
 Дальше всё просто. Настраиваем дайлплан. Для хранения информации по дайлплану я использовал extensions.ael:
 
-```ael
+```console
 context incoming-utel {
-s => {
-Set(CALLERID(all)=$[CALLERID(num)]);
-Dial(SIP/903&amp;SIP/900,60,t);
-};
-sms => {
-Verbose(Incoming SMS from ${CALLERID(num)} ${SMS});
-System(echo '${STRFTIME(${EPOCH},,%Y-%m-%d %H:%M:%S)} - ${DONGLENAME} - ${CALLERID(num)}: ${SMS}' &gt;&gt; /var/log/asterisk/sms.txt);
-Hangup();
-};
+  s => {
+    Set(CALLERID(all)=$[CALLERID(num)]);
+    Dial(SIP/903&amp;SIP/900,60,t);
+  };
+  sms => {
+    Verbose(Incoming SMS from ${CALLERID(num)} ${SMS});
+    System(echo '${STRFTIME(${EPOCH},,%Y-%m-%d %H:%M:%S)} - ${DONGLENAME} - ${CALLERID(num)}: ${SMS}' &gt;&gt; /var/log/asterisk/sms.txt);
+    Hangup();
+  };
 }
 ```
 
@@ -116,7 +116,7 @@ tavda*CLI> dongle cmd datacard1 AT+CPBW=1,\"+795273XXXXX\",145
 
 Для осуществления исходящих вызовов через модемы просто используйте соответствующие шаблоны в extensions.ael:
 
-```ael
+```console
 _89022[5-7]XXXXX => Dial(Dongle/datacard0/${EXTEN});
 _895304XXXXX => Dial(Dongle/datacard1/${EXTEN});
 ```

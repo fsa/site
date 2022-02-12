@@ -1,8 +1,6 @@
 ---
 layout: default
-title: Заметки
 ---
-<h1>Заметки</h1>
 <p><a href="/tags">Заметки по тегами</a></p>
 {% for post in site.posts %}
 <p>{{ post.date| date: "%d.%m.%Y" }}&nbsp;&mdash;&nbsp;<a href="{{ post.url }}">{{ post.title }}</a></p>

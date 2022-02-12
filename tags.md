@@ -1,6 +1,8 @@
 ---
 layout: default
 ---
+# Блог по ключевым словам
+
 {% capture tags %}{% for tag in site.tags %}{{ tag[0] }},{% endfor %}{% endcapture %}
 {% assign sortedtags = tags | split:',' | sort %}
 

@@ -1,5 +1,6 @@
 ---
 layout: default
+title: Сайт FSA
 ---
 # Что нового
 

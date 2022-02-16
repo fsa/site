@@ -4,7 +4,7 @@ title: Настройка TURN сервера (перевод)
 date: 2022-02-15 22:25:00 +0700
 tags: [Matrix, synapse, coturn]
 ---
-Эта заметка создана на базе Howto <https://matrix-org.github.io/synapse/latest/turn-howto.html>. Большая часть заметки - это вольный перевод.
+Это вольный перевод Howto <https://matrix-org.github.io/synapse/latest/turn-howto.html>.
 
 ---
 

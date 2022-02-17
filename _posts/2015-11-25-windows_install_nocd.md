@@ -3,6 +3,7 @@ layout: post
 title: Как я ставил Windows без DVD/CD, флешки и сети
 date: 2015-11-25 15:17:00 +0500
 tags: [Windows, Linux, VirtualBox]
+excerpt: Установка операционной системы на примере установки Windows с использованием работающей ОСs с установленным VirtualBox
 ---
 Возникла тут задача установить Windows на компьютер без DVD/CD.
 

@@ -3,6 +3,7 @@ layout: post
 title: Microcosm и переход с lighttpd на nginx
 date: 2012-03-20 18:29:00 +0500
 tags: [Microcosm, nginx, OpenStreetMap]
+excerpt: Создание собственного локального сервера OpenStreetMap на базе Microcosm
 ---
 Решил я заменить lighttpd на nginx. Уж очень часто его нахваливают в интернете. Всё прошло гладко. Но споткнулся о небольшое приложение для хранения геоданных - [Microcosm](http://wiki.openstreetmap.org/wiki/Microcosm). Написано оно на php. В документации есть только вариант для Apache:
 

@@ -3,6 +3,7 @@ layout: post
 title: Fedora, новый опыт в Linux
 date: 2021-04-10 00:33:45 +0700
 tags: [Linux, Fedora, nginx, PostgreSQL, PHP]
+excerpt: Делюсь опытом по настройке Fedora
 ---
 
 Это черновик. Данный материал будет доработан в ближайшее время.

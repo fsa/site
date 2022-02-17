@@ -249,18 +249,20 @@ turn_allow_guests: True
 * Если вы используете клиент на основе браузера в Chrome, воспользуйтесь <chrome://webrtc-internals/>. В Firefox проверьте «Журнал подключений» через <about:webrtc>.
 * Протестировать настройку TURN-сервера для  сервера Matrix можно с помощью <https://test.voip.librepush.net/>. Обратите внимание, что этот тест еще не полностью надежен, поэтому не расстраивайтесь, если тест не пройден. [Ознакомиться с репозиторием исходного кода тестера можно на github](https://github.com/matrix-org/voip-tester), там же можно сообщать о найденных ошибках.
 * Инструмент для тестирования WebRTC [доступен по ссылке](https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/). Чтобы использовать его, вам понадобится имя пользователя/пароль для вашего TURN-сервера. Их можно найти:
-  * найдите запрос GET /_matrix/client/r0/voip/к вашему TURN-серверу, который выполнил клиент Matrix, в сетевом инспекторе браузера. В ответе сервера вы должны увидеть username и password. Или:
+  * найдите запрос GET /_matrix/client/r0/voip/к вашему TURN-серверу, который выполнил клиент Matrix, в сетевом инспекторе браузера. В ответе сервера вы должны увидеть username и password. 
+
+    Или:
   * Используйте следующий скрипт:
 
-  ```bash
-  secret=staticAuthSecretHere
+    ```bash
+    secret=staticAuthSecretHere
   
-  u=$((`date +%s` + 3600)):test
-  p=$(echo -n $u | openssl dgst -hmac $secret -sha1 -binary | base64)
-  echo -e "username: $u\npassword: $p"
-  ```
+    u=$((`date +%s` + 3600)):test
+    p=$(echo -n $u | openssl dgst -hmac $secret -sha1 -binary | base64)
+    echo -e "username: $u\npassword: $p"
+    ```
   
-  Или:
+    Или:
   * Временно настройте coturn для доступа с помощью имени пользователя и пароля. Для этого закомментируйте `use-auth-secret` и `static-auth-secret` и, добавьте следующие параметры:
 
   ```ini

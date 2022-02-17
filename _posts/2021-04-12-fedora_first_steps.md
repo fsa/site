@@ -159,6 +159,4 @@ create database fsa owner fsa;
 
 ## Полезные ссылки
 
-[Неофициальный FAQ по Fedora][1]
-
-[1]: <https://russianfedora.github.io/FAQ/> Неофициальный FAQ по Fedora
+1. [Неофициальный FAQ по Fedora](https://russianfedora.github.io/FAQ/)

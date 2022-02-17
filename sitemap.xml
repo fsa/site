@@ -20,7 +20,7 @@
     <url>
       <loc>{{ site.url }}/archive</loc>
       <changefreq>monthly</changefreq>
-      <priority>1.0</priority>s
+      <priority>1.0</priority>
     </url>
   {% for post in site.posts %}
     <url>

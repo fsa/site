@@ -1,30 +1,19 @@
----
-layout: null
-sitemap:
-  exclude: 'yes'
----
-
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{% for post in site.posts %}{% unless post.published == false or post.sitemap.exclude == 'yes' %}
-    <url>
-        <loc>{{ site.url }}{{ post.url }}</loc>
-        {% if post.last-modified-date %}<lastmod>{{ post.last-modified-date | date_to_xmlschema }}</lastmod>{% endif %}
-    </url>
-{% endunless %}{% endfor %}
-
-{% for page in site.pages %}{% unless page.sitemap.exclude == "yes" %}
-    <url>
-        <loc>{{ site.url }}{{ page.url }}</loc>
-        <lastmod>{{ page.path | file_date | date_to_xmlschema }}</lastmod>
-    </url>
-{% endunless %}{% endfor %}
-
-{% for category in site.categories %}
-    {% capture category_link %} blog/{{ category[0] }}/index.html {% endcapture %}
-    <url>
-        <loc>{{ site.url }}/blog/{{ category[0] }}/</loc>
-    </url>
-{% endfor %}
-
+   <url>
+      <loc>https://tavda.net/</loc>
+      <changefreq>daily</changefreq>
+   </url>
+   <url>
+      <loc>https://tavda.net/posts</loc>
+      <changefreq>daily</changefreq>
+   </url>
+   <url>
+      <loc>https://tavda.net/tags</loc>
+      <changefreq>daily</changefreq>
+   </url>
+   <url>
+      <loc>https://tavda.net/archive</loc>
+      <changefreq>montly</changefreq>
+   </url>
 </urlset>

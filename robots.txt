@@ -1,2 +1,3 @@
 User-Agent: *
 Host: https://tavda.net
+Sitemap: https://tavda.net/sitemap.xml

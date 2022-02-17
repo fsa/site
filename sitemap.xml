@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+      <loc>https://tavda.net/</loc>
+      <changefreq>daily</changefreq>
+   </url>
+   <url>
+      <loc>https://tavda.net/posts</loc>
+      <changefreq>daily</changefreq>
+   </url>
+   <url>
+      <loc>https://tavda.net/tags</loc>
+      <changefreq>daily</changefreq>
+   </url>
+   <url>
+      <loc>https://tavda.net/archive</loc>
+      <changefreq>montly</changefreq>
+   </url>
+</urlset>

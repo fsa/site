@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Миграция с FreeBSD на Linux
+redirect_from:
+  - /blog/freebsd-linux/
 date: 2010-10-02 04:05:00 +0500
 tags: [FreeBSD, Linux, Ubuntu]
 excerpt: Заметка о переносе файлов из FreeBSD в Ubuntu с использованием внешнего HDD, тонкости процесса

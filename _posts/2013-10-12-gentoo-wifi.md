@@ -1,6 +1,9 @@
 ---
 layout: post
 title: Настройка Wi-Fi в Gentoo
+redirect_from:
+  - /blog/gentoo-wifi/
+  - /2013/10/wifi-gentoo.html
 date: 12.10.2013 01:49:00 +0500
 tags: [Gentoo, Wi-Fi]
 excerpt: Опыт настройки Wi-Fi в операционной системе Gentoo без использования NetworkManager

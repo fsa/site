@@ -3,6 +3,7 @@ layout: post
 title: Верстаем диплом в LaTeX
 redirect_from:
   - /blog/latex/
+  - /2011/03/latex.html
 date: 2011-03-18 04:44:00 +0700
 tags: [LaTeX]
 excerpt: Опыт использования LaTeX при написании дипломной работы в ВУЗе с использованием пакета eskdx

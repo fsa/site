@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Умный дом на основе Majordomo
+redirect_from:
+  - /2018/04/majordomo.html
 date: 2018-04-03 17:43:00 +0700
 tags: [MajorDoMo, nginx]
 excerpt: "Черновик: Установка контроллера сервера умного дома MajorDoMo"

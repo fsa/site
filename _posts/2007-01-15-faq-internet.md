@@ -3,6 +3,7 @@ layout: post
 title: FAQ (вопрос/ответ) по доступу в сеть интернет
 redirect_from:
   - /blog/faq-internet/
+  - /2007/01/faq.html
 date: 2007-01-15 19:38:00 +0500
 lastmod: 2022-02-15 00:00:00 +0700
 tags: [FAQ, Интернет]

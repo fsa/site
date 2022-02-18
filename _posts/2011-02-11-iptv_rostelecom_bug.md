@@ -3,6 +3,7 @@ layout: post
 title: Просмотр IPTV Ростелеком в Linux
 redirect_from:
   - /blog/linux-iptv-rt/
+  - /2011/02/ubuntu.html
 date: 2011-02-11 02:18:00 +0500
 tags: [IPTV, Ubuntu, Linux]
 excerpt: Заметка о просмотре IPTV в Linux, если в качестве порта используется порт с номером меньше 1024

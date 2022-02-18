@@ -1,6 +1,8 @@
 ---
 layout: post
 title: О переходе с Windows на Linux
+redirect_from:
+  - /2018/04/windows-linux.html
 date: 2018-04-29 20:11:00 +0700
 tags: [Windows, Linux]
 excerpt: Делюсь опытом перехода на операционную систему Linux в качестве основной системы для своего ПК

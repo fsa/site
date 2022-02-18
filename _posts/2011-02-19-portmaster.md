@@ -3,6 +3,7 @@ layout: post
 title: "portmaster: управляем портами во FreeBSD"
 redirect_from:
   - /blog/portmaster/
+  - /2016/04/portmaster-freebsd.html
 date: 2011-02-19 14:21:00 +0500
 tags: [FreeBSD]
 excerpt: Опыт перехода от portupgrade к portmaster во FreeBSD

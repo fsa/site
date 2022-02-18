@@ -3,6 +3,7 @@ layout: post
 title: Microcosm и переход с lighttpd на nginx
 redirect_from:
   - /blog/microcosm_nginx/
+  - /2012/03/microcosm-lighttpd-nginx.html
 date: 2012-03-20 18:29:00 +0500
 tags: [Microcosm, nginx, OpenStreetMap]
 excerpt: Создание собственного локального сервера OpenStreetMap на базе Microcosm

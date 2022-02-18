@@ -3,6 +3,7 @@ layout: post
 title: Установка PostgreSQL на FreeBSD
 redirect_from:
   - /blog/postgresql-freebsd/
+  - /2010/10/postgresql-freebsd.html
 date: 2010-10-02 20:50:00 +0500
 tags: [FreeBSD, PostgreSQL]
 excerpt: Заметка об установке PostgreSQL на ОС FreeBSD, создание и управление пользователями базы данных, базами данных 

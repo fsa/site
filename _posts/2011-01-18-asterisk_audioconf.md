@@ -3,6 +3,7 @@ layout: post
 title: Настраиваем аудиоконференции в Asterisk на FreeBSD
 redirect_from:
   - /blog/app_meetme/
+  - /2011/01/asterisk-182-freebsd-81.html
 date: 2011-01-19 11:58:00 +0500
 tags: [Asterisk, FreeBSD]
 excerpt: Заметка о настройке Asterisk 1.8.2 на FreeBSD 8.1 в качестве сервера аудиоконференций с использованием модуля app_meetme

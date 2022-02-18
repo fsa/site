@@ -6,3 +6,5 @@ sass:
   style: compressed
 permalink: /:title
 timezone: Asia/Yekaterinburg
+plugins:
+  - jekyll-redirect-from

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Настройка TURN сервера (перевод)
+title: Настройка TURN сервера coturn (перевод)
 date: 2022-02-15 22:25:00 +0700
 tags: [Matrix, synapse, TURN, coturn]
 excerpt: Перевод Howto по установке TURN сервера coturn для использования совместно с сервером Matrix Synapse 

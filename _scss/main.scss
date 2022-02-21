@@ -35,9 +35,8 @@ main {
     padding: 1rem;
     overflow: auto;
     h1 {
-        margin: 0;
-        padding: 0;
-        font-size: 1.5rem;
+        font-size: 2rem;
+        text-align: center;
     }
     p {
         text-align: justify;
@@ -89,8 +88,6 @@ footer {
     border: 2px $theme-colors-primary solid;
 }
 
-.post-title {
-    text-align: center;
-    font-size: 2rem;
-    font-weight:bold;
+.post-date {
+    color: #b0b0b0
 }

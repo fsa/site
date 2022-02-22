@@ -164,9 +164,12 @@ postgresql-setup initdb
 
 Создаём пользователя, который будет иметь права доступа суперпользователя, иметь возможность создавать новых пользователей и базы данных.
 
-```console
-# su postges
+```bash
+su postges
 psql
+```
+
+```sql
 create user fsa superuser createrole createdb;
 create database fsa owner fsa;
 \password fsa

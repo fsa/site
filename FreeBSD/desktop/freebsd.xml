@@ -696,13 +696,8 @@ own     pass0    root:operator
 <section>
 <title>6.2. Создание собственной конфигурации ядра</title>
 <warning>Первый раз можно пропустить данную стадию, т.к. несмотря на то, что можно более оптимально настроить ядро системы, возможно возникновение различных побочных эффектов.</warning>
-<para></para>
+<para>Процесс настройки и сборки ядра хорошо <ulink url="https://docs.freebsd.org/ru/books/handbook/kernelconfig/">описан в документации</ulink>.</para>
 </section>
-</section>
-
-<section>
-<title>Продолжение следует...</title>
-<para>Ждите обновлений</para>
 </section>
 
 </article>

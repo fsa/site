@@ -3,6 +3,7 @@ layout: post
 title: Памятка по MySQL/MariaDB
 redirect_from:
   - /blog/mysql/
+  - /2018/04/mysqlmariadb.html
 date: 2018-04-23 07:33:00 +0700
 tags: [MariaDB, MySQL]
 excerpt: Шпаргалка по первоначальной настройке сервера MySQL

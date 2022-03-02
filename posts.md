@@ -1,5 +1,7 @@
 ---
 layout: default
+redirect_from:
+  - /blog/
 excerpt: Мой блог
 ---
 # Заметки

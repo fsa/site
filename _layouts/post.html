@@ -6,3 +6,17 @@ layout: default
 {{ content }}
 <hr>
 <p>Если данная заметка оказалась вам полезной, можете <a href="https://qiwi.com/n/TAVDA">поблагодарить автора финансово любой суммой</a>.</p>
+<hr>
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+        this.page.url = "{{ site.url }}{{ site.baseurl }}{{ page.url | replace:'index.html',''}}";
+        this.page.identifier = "{{ page.url | replace:'index.html',''}}";
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://tavda.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>

@@ -28,6 +28,11 @@
       <priority>1.0</priority>
     </url>
     <url>
+      <loc>{{ site.url }}/games</loc>
+      <changefreq>daily</changefreq>
+      <priority>1.0</priority>
+    </url>
+    <url>
       <loc>{{ site.url }}/FreeBSD/desktop/</loc>
       <changefreq>monthly</changefreq>
       <priority>1.0</priority>

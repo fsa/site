@@ -12,9 +12,7 @@ Sokoban - двухмерная компьютерная игра-головол�
 
 Игра написана на HTML5 и JavaScript. Графическое оформление использовано стороннее. В качестве уровней используются уровни из DOS версии игры.
 
-[Проект на Github](https://github.com/fsa/html5-sokoban).
-
-[Демо](https://tavda.info/sokoban/).
+[Проект на Github](https://github.com/fsa/html5-sokoban) | [Демо](https://tavda.info/sokoban/)
 
 ## Snake
 
@@ -22,9 +20,7 @@ Sokoban - двухмерная компьютерная игра-головол�
 
 Игра написана на HTML5 и JavaScript.
 
-[Проект на Github](https://github.com/fsa/html5-snake).
-
-[Демо](https://tavda.info/snake/).
+[Проект на Github](https://github.com/fsa/html5-snake) | [Демо](https://tavda.info/snake/)
 
 ## Пятнашки
 
@@ -32,6 +28,4 @@ Sokoban - двухмерная компьютерная игра-головол�
 
 Игра написана на HTML5 и JavaScript.
 
-[Проект на Github](https://github.com/fsa/html5-fifteen).
-
-[Демо](https://tavda.info/fifteen/).
+[Проект на Github](https://github.com/fsa/html5-fifteen) | [Демо](https://tavda.info/fifteen/)

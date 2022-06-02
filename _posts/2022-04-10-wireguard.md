@@ -198,6 +198,18 @@ firewall-cmd --permanent --zone=external --add-service=https
 firewall-cmd --permanent --zone=external --add-port 1080/tcp
 ```
 
+### Если не работает NAT в Firewalld
+
+Столкнулся с тем, что не работал NAT в Fedora 35. Через пол года подобное встретилось на Ubuntu 22.04 LTS. Решить проблему можно создав policy object:
+
+```bash
+firewall-cmd --permanent --new-policy client-to-inet
+firewall-cmd --permanent --policy client-to-inet --set-target ACCEPT
+firewall-cmd --permanent --policy client-to-inet --add-ingress-zone internal
+firewall-cmd --permanent --policy client-to-inet --add-egress-zone external
+firewall-cmd --reload
+```
+
 ## Заключение
 
 В результате настройки клиента и сервера мы получили виртуальную сеть между двумя узлами. С помощью этого соединения можно получить доступ к ресурсам, которые ранее были недоступны. При этом при обмене данными между клиентом и сервером через VPN можно использовать даже нешифрованные соединения, поскольку весь трафик, который доступен по пути следования пакетов VPN, скрыт от любопытных глаз шифрованием.

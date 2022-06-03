@@ -57,14 +57,14 @@ Wireguard может быть настроен как вручную с испо
 [Interface]
 Address = 192.168.0.1/24
 PrivateKey = SERVER_PRIVATE_KEY
-ListenPort = 35053
+ListenPort = 51820
 
 [Peer]
 PublicKey = CLIENT_PUBLIC_KEY
 AllowedIPs = 192.168.0.2
 ```
 
-В данной конфигурации создаётся виртуальная сеть с адресацией `192.168.0.0/24`, адрес сервера в этой сети `192.168.0.1`. Параметр `ListenPort` указывает на то, что это сервер и он будет прослушивать порт 35053 на сетевых интерфейсах для входящих подключений. Сервер будет использовать закрытый ключ `SERVER_PRIVATE_KEY`, который в реальном файле конфигурации необходимо заменить на соответствующую строку с закрытым ключом сервера.
+В данной конфигурации создаётся виртуальная сеть с адресацией `192.168.0.0/24`, адрес сервера в этой сети `192.168.0.1`. Параметр `ListenPort` указывает на то, что это сервер и он будет прослушивать порт 51820 на сетевых интерфейсах для входящих подключений. Сервер будет использовать закрытый ключ `SERVER_PRIVATE_KEY`, который в реальном файле конфигурации необходимо заменить на соответствующую строку с закрытым ключом сервера.
 
 Секция `[Peer]` описывает клиента и может быть использована несколько раз для разных клиентов. В секции указан публичных ключ клиента (`CLIENT_PUBLIC_KEY`) и адреса узлов, которые могут присылать пакеты через соединение (`AllowedIPs`), в данном случае, это адрес удалённой машины. Вместо `CLIENT_PUBLIC_KEY` укажите строку с публичным ключом клиента.
 
@@ -78,7 +78,7 @@ PrivateKey = CLIENT_PRIVATE_KEY
 [Peer]
 PublicKey = SERVER_PUBLIC_KEY
 AllowedIPs = 192.168.0.0/24
-Endpoint = SERVER_NAME:35053
+Endpoint = SERVER_NAME:51820
 PersistentKeepalive = 20
 ```
 
@@ -118,7 +118,7 @@ PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACC
 
 ### Настройка Firewalld
 
-Для тех, кто решился воспользоваться Firewalld. Сначала его необходимо установить. В некоторых системах (например, Fedora) он уже установлен по умолчанию. В Ubuntu 20.04 LTS (текущая LTS на момент написания этих строк) может быть установлен с помощью команды
+Для тех, кто решился воспользоваться Firewalld. Сначала его необходимо установить. В некоторых системах, например, в Fedora, он уже установлен по умолчанию. В Ubuntu 20.04 LTS и 22.04 LTS может быть установлен из репозитория `universe` с помощью команды
 
 ```bash
 sudo apt install firewalld
@@ -148,6 +148,12 @@ firewall-cmd --permanent --zone=ZONE --add-masquerade
 
 ```bash
 firewall-cmd --permanent --zone=external --add-interface ens3
+firewall-cmd --permanent --zone=external --add-service wireguard
+```
+
+Если вы используете Firewalld до версии 1.0 или нестандартный номер порта, например, 35053, то вместо использования имени службы необходимо указать номер порта:
+
+```bash
 firewall-cmd --permanent --zone=external --add-port 35053/udp
 ```
 
@@ -192,7 +198,7 @@ firewall-cmd --permanent --zone=external --add-service=http
 firewall-cmd --permanent --zone=external --add-service=https
 ```
 
-Если подходящих вариантов не нашлось, то можно открыть порт непосредственно по номеру, например 1080 по протоколу TCP
+Если подходящих вариантов не нашлось, то можно открыть порт непосредственно по номеру, например, 1080 по протоколу TCP
 
 ```bash
 firewall-cmd --permanent --zone=external --add-port 1080/tcp
@@ -200,7 +206,7 @@ firewall-cmd --permanent --zone=external --add-port 1080/tcp
 
 ### Если не работает NAT в Firewalld
 
-Столкнулся с тем, что не работал NAT в Fedora 35. Через пол года подобное встретилось на Ubuntu 22.04 LTS. Решить проблему можно создав policy object:
+Начиная с Firewalld 1.0 по умолчанию блокируется транзитный трафик между зонами. Необходимо разрешить его с помощью policy object, например, создав правило `client-to-inet`:
 
 ```bash
 firewall-cmd --permanent --new-policy client-to-inet

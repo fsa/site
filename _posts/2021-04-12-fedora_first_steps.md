@@ -83,7 +83,9 @@ firewall-cmd --permanent --add-service=http
 firewall-cmd --reload
 ```
 
+{% comment %}
 ... (тут должно быть продолжение заметки :) )
+{% endcomment %}
 
 ## Настройка php
 
@@ -99,7 +101,10 @@ dnf install php-cli php-fpm php-pgsql php-json php-mbstring
 ;listen.acl_users = apache,nginx
 ```
 
-Но лучше воспользоваться ими... (тут не хватает описания :) )
+Но лучше воспользоваться ими...
+{% comment %}
+    тут не хватает описания :)
+{% endcomment %}
 
 Если нужны подключения по сети с сервера (в том числе proxy), то нужно включить:
 

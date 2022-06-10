@@ -1,11 +1,12 @@
 ---
 layout: post
-title: PostgreSQL
+title: Установка PostgreSQL
 date: 2022-06-08 23:57:00 +0700
 tags: [postgresql]
 excerpt: Шпаргалка по PostgreSQL
 published: false
 ---
+Эта заметка является доработанным и расширенным вариантом моей старой заметки [Установка PostgreSQL на FreeBSD](https://tavda.net/postgresql_install_freebsd).
 
 ## Инициализация базы данных
 

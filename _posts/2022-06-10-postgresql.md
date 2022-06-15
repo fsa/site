@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Установка PostgreSQL
-date: 2022-06-08 23:57:00 +0700
+date: 2022-06-15 18:58:00 +0700
 tags: [postgresql]
 excerpt: Сборник рецептов по администрированию сервера PostgreSQL
 ---

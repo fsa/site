@@ -5,10 +5,10 @@ redirect_from:
   - /blog/microcosm_nginx/
   - /2012/03/microcosm-lighttpd-nginx.html
 date: 2012-03-20 18:29:00 +0500
-tags: [Microcosm, nginx, OpenStreetMap]
+tags: [Microcosm, PHP, nginx, OpenStreetMap]
 excerpt: Создание собственного локального сервера OpenStreetMap на базе Microcosm
 ---
-Решил я заменить lighttpd на nginx. Уж очень часто его нахваливают в интернете. Всё прошло гладко. Но споткнулся о небольшое приложение для хранения геоданных - [Microcosm](http://wiki.openstreetmap.org/wiki/Microcosm). Написано оно на php. В документации есть только вариант для Apache:
+Решил я заменить lighttpd на nginx. Уж очень часто его нахваливают в интернете. Всё прошло гладко. Но споткнулся о небольшое приложение для хранения геоданных - [Microcosm](http://wiki.openstreetmap.org/wiki/Microcosm). Написано оно на PHP. В документации есть только вариант для Apache:
 
 ```apache
 # BEGIN Microcosm
@@ -34,7 +34,7 @@ url.rewrite = ( "^/api/(.*)$" => "m/microcosm.php/$1" )
 ```nginx
 location /api/ {
    fastcgi_pass unix:/var/spool/php-fpm.socket; # PHP-FPM socket
-   root   /home/web/htdocs/m/; # Microcosm directory
+   root   /var/www/htdocs/m/; # Microcosm directory
    fastcgi_index microcosm.php;
    include        fastcgi_params;
    fastcgi_split_path_info ^(\/api)(.*)$;
@@ -43,4 +43,4 @@ location /api/ {
 }
 ```
 
-Используется директива `fastcgi_split_path_info`. Она разбивает адресную строку запроса на 2 части, которые описаны регулярными выражениями. Первая часть — это `/api`, попадает в переменную `$fastcgi_script_name`. Вторая часть попадает в `$fastcgi_path_info`. Её и скармливаем php в виде `$_SERVER['PATH_INFO']`. Эта переменная и используется в microcosm.
+Используется директива `fastcgi_split_path_info`. Она разбивает адресную строку запроса на 2 части, которые описаны регулярными выражениями. Первая часть — это `/api`, попадает в переменную `$fastcgi_script_name`. Вторая часть попадает в `$fastcgi_path_info`. Её и скармливаем PHP в виде `$_SERVER['PATH_INFO']`. Эта переменная и используется в microcosm.

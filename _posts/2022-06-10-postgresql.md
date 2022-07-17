@@ -2,7 +2,7 @@
 layout: post
 title: Установка PostgreSQL
 date: 2022-06-15 18:58:00 +0700
-tags: [postgresql]
+tags: [PostgreSQL]
 excerpt: Сборник рецептов по администрированию сервера PostgreSQL
 ---
 Эта заметка является доработанным и расширенным вариантом моей старой заметки [Установка PostgreSQL на FreeBSD](https://tavda.net/postgresql_install_freebsd).

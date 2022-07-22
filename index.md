@@ -7,14 +7,12 @@ redirect_from:
 excerpt: Это мой персональный сайт
 ---
 {% for post in site.posts %}
-{{ post.date| date: "%d.%m.%Y" }}&nbsp;—&nbsp;[{{ post.title }}]({{ post.url }})  
+{{ post.date| date: "%d.%m.%Y" }}:&nbsp;[{{ post.title }}]({{ post.url }})  
 {{ post.excerpt }}
 
 {% endfor %}
 
 ## Обновления
-
-16.02.2022: Выполнил [перевод Howto по установке сервера coturn](/matrix-coturn) для использования совместно с сервером Matrix Synapse, [статью об установке которого](/matrix) писал ранее.
 
 12.02.2022: Объединил сайт и блог. Домен blog.tavda.net больше не используется. Все статьи, ранее доступные на blog.tavda.net, теперь доступны по аналогичным адресам на tavda.net.
 

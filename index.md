@@ -7,8 +7,7 @@ redirect_from:
 excerpt: Это мой персональный сайт
 ---
 {% for post in site.posts %}
-{{ post.date| date: "%d.%m.%Y" }}&nbsp;—&nbsp;[{{ post.title }}]({{ post.url }})
-
+{{ post.date| date: "%d.%m.%Y" }}&nbsp;—&nbsp;[{{ post.title }}]({{ post.url }})  
 {{ post.excerpt }}
 
 {% endfor %}

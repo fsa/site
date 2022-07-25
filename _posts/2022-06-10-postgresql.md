@@ -257,8 +257,8 @@ pg_dump -Fc -f db_name.dump db_name
 pg_restore -Fc -d db_name db_name.dump
 ```
 
-1. [Перевод официальной документации по pg_dump][pg_dump]
-2. [Перевод официальной документации по pg_restore][pg_restore]
+1. [Перевод официальной документации по pg_dump][pg-dump]
+2. [Перевод официальной документации по pg_restore][pg-restore]
 3. [Перевод официальной документации по CREATE USER][create-role]
 4. [Методы аутентификации клиентского приложения][pgauth]
 

@@ -169,6 +169,16 @@ firewall-cmd --permanent --zone=internal --add-interface wg0
 firewall-cmd --reload
 ```
 
+Начиная с Firewalld 1.0 по умолчанию блокируется транзитный трафик между зонами. Необходимо разрешить его с помощью policy object, например, создав правило `client-to-inet`:
+
+```bash
+firewall-cmd --permanent --new-policy client-to-inet
+firewall-cmd --permanent --policy client-to-inet --set-target ACCEPT
+firewall-cmd --permanent --policy client-to-inet --add-ingress-zone internal
+firewall-cmd --permanent --policy client-to-inet --add-egress-zone external
+firewall-cmd --reload
+```
+
 Теперь все пакеты, которые будут проходить из зоны `internal` в `external` будут подвергнуты NAT. При необходимости, на Wireguard клиенте разрешить получение любых пакетов через соединение с помощью параметра `AllowedIPs`
 
 ```ini
@@ -177,13 +187,13 @@ AllowedIPs = 0.0.0.0/0
 
 и вы получите возможность перенаправить весь трафик вашего устройства через ваш сервер, т.е.получить именно тот самый VPN для доступа в интернет, который сейчас так часто рекламируют.
 
+### Ещё немного о Firewalld
+
 Наиболее часто используемую зону можно использовать в качестве зоны по умолчанию, тогда её можно не указывать в командах
 
 ```bash
 firewall-cmd --set-default-zone=external
 ```
-
-### Ещё немного о Firewalld
 
 После запуска Firewalld могут возникнуть проблемы с доступом к другим службам на сервере. Для них необходимо открыть доступ. Наиболее оптимальный путь - разрешить необходимые вам службы. Список служб можно получить с помощью команды
 
@@ -202,18 +212,6 @@ firewall-cmd --permanent --zone=external --add-service=https
 
 ```bash
 firewall-cmd --permanent --zone=external --add-port 1080/tcp
-```
-
-### Если не работает NAT в Firewalld
-
-Начиная с Firewalld 1.0 по умолчанию блокируется транзитный трафик между зонами. Необходимо разрешить его с помощью policy object, например, создав правило `client-to-inet`:
-
-```bash
-firewall-cmd --permanent --new-policy client-to-inet
-firewall-cmd --permanent --policy client-to-inet --set-target ACCEPT
-firewall-cmd --permanent --policy client-to-inet --add-ingress-zone internal
-firewall-cmd --permanent --policy client-to-inet --add-egress-zone external
-firewall-cmd --reload
 ```
 
 ## Заключение

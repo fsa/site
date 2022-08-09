@@ -3,6 +3,13 @@ layout: post
 title: Установка FreeBSD в качестве рабочей станции
 redirect_from:
   - /FreeBSD/desktop/
+    /FreeBSD/desktop/ar01s02.html
+    /FreeBSD/desktop/ar01s03.html
+    /FreeBSD/desktop/ar01s04.html
+    /FreeBSD/desktop/ar01s05.html
+    /FreeBSD/desktop/ar01s06.html
+    /FreeBSD/desktop/ar01s07.html
+    /FreeBSD/desktop/ar01s08.html
 date: 2006-11-26 20:00:00 +0500
 lastmod: 2022-08-08 23:59 +0500
 tags: [FreeBSD]

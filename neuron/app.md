@@ -9,10 +9,13 @@ excerpt: PHP фреймворк Neuron - класс App
 Внутри класса необходимо объявить константы
 
 ```php
-const REDIS_PREFIX = 'my_app';
-const LOG_TAG = 'my_app';
-const SESSION_NAME = 'my_app';
-const SETTINGS_FILE = __DIR__ . '/../settings.php';
+class App extends FSA\Neuron\App
+{
+    const REDIS_PREFIX = 'my_app';
+    const LOG_TAG = 'my_app';
+    const SESSION_NAME = 'my_app';
+    const SETTINGS_FILE = __DIR__ . '/../settings.php';
+}
 ```
 
 * REDIS_PREFIX - префикс, используемый во всех ключах Redis, используемых фреймворком;

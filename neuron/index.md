@@ -15,4 +15,4 @@ composer require fsa/neuron-framework
 Все классы фреймворка расположены в пространстве имён FSA\Neuron.
 
 * [Класс App](app)
-* [Файл настроек](settings
+* [Файл настроек](settings)

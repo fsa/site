@@ -17,4 +17,5 @@ composer require fsa/neuron-framework
 Разделы документации
 
 * [Класс App](app)
+* [HTML шаблоны](templates)
 * [Файл настроек](settings)

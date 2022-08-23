@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Neuron Framework
+title: Neuron Framework - App
 excerpt: PHP фреймворк Neuron - класс App
 ---
 
@@ -23,7 +23,7 @@ class App extends FSA\Neuron\App
 * SESSION_NAME - префикс, используемый для имён Cookie, предназначенных для аутентификации пользователей, если не указана переменная окружения `SESSION_NAME`;
 * SETTINGS_FILE - путь до [файла с настройками сайта](settings).
 
-Рекомендуется переопределить метод App::initHtml() и явно задать используемые шаблоны для веб-страниц. Кроме этого, можно передать во все эти шаблоны необходимые параметры через метод setContext(), который принимает массив параметров. В том числе можно передать в шаблон динамические данные, например, данные сессии пользователя.
+Рекомендуется переопределить метод App::initHtml() и явно задать используемые [шаблоны](templates) для веб-страниц. Кроме этого, можно передать во все эти [шаблоны](templates) необходимые параметры через метод setContext(), который принимает массив параметров. В том числе можно передать в шаблон динамические данные, например, данные сессии пользователя.
 
 ```php
 public static function initHtml($main_template = Templates\Main::class, $login_template = Templates\Login::class, $message_template = Templates\Message::class): FSA\Neuron\ResponseHtml

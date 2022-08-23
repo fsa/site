@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Neuron Framework
+title: Neuron Framework - файл настроек
 excerpt: PHP фреймворк Neuron - файл настроек
 ---
 

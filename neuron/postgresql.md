@@ -4,4 +4,4 @@ title: Neuron Framework - объект PostgreSQL
 excerpt: PHP фреймворк Neuron - объект PostgreSQL
 ---
 
-Объект `PostgreSQL` представляет из себя расширенный вариант объекта PDO.
+Класс `PostgreSQL` представляет из себя дочерний класс от PDO.

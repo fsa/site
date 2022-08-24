@@ -19,3 +19,6 @@ composer require fsa/neuron-framework
 * [Класс App](app)
 * [HTML шаблоны](templates)
 * [Файл настроек](settings)
+* [Объект response](response)
+* [Объект PostgreSQL](postgresql)
+* [Сессии пользователя](session)

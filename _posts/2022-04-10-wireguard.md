@@ -127,7 +127,7 @@ systemctl enable --now wg-quick@wg0
 
 При использовании iptables необходимо в секцию `[Interface]` сервера добавить следующие параметры:
 
-```console
+```ini
 PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o ens3 -j MASQUERADE
 PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o ens3 -j MASQUERADE
 ```

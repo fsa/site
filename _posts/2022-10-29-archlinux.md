@@ -138,16 +138,19 @@ pacman -S sudo
 echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/g_wheel
 ```
 
-Перед перезагрузкой стоит позаботиться о пакетах, которые позволят получить доступ к сети интернет. Как минимум, это клиент DHCP:
+В качестве сервиса работы с сетью используем networkd из состава systemd (вы можете использовать NetworkManager, netplan.io и другие, по желанию). Чтобы интерфейс с именем `enp0s3` получил автоматические настройки через DHCPD, создадим файл `/etc/systemd/networkd/enp0s3.network` со следующим содержанием:
 
-```bash
-pacman -S dhcpcd
+```ini
+[Match]
+Name=enp0s3
+
+[Network]
+DHCP=yes
 ```
 
-В качестве сервиса работы с сетью используем networkd из состава systemd (вы можете использовать NetworkManager, netplan.io и другие, по желанию). Активируем сервисы и позволим systemd контролировать адреса используемых DNS серверов заменив /etc/resolv.conf на символическую ссылку:
+Активируем сервисы и позволим systemd контролировать адреса используемых DNS серверов заменив /etc/resolv.conf на символическую ссылку:
 
 ```bash
-systemctl enable dhcpcd
 systemctl enable systemd-networkd
 systemctl enable systemd-resolved
 ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf

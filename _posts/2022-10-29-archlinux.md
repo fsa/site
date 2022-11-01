@@ -84,23 +84,25 @@ hwclock --systohc
 pacman -S vim
 ```
 
-Редактируем файл `locale.gen` путём удаления комментариев перед `ru_RU.UTF-8`:
+Редактируем файл `locale.gen` путём удаления комментариев перед `ru_RU.UTF-8` или другой необходимой, генерируем необходимые файлы и устанавливаем нужную локаль:
 
 ```bash
 vim /etc/locale.gen
-```
-
-Далее вновь следуем инструкциям с официального сайта проекста:
-
-```
 locale-gen
-echo LANG=ru_RU.UTF-8 > /etc/locale.conf
+localectl set-locale ru_RU.UTF-8
+```
+
+Для возможности отображения кириллицы необходимо использовать шрифт с её поддержкой. Это можно сделать в файле `/etc/vconsole.conf`:
+
+```ini
+FONT=cyr-sun16
+KEYMAP=ru
 ```
 
 Установим имя хоста (для примера, archlinux)
 
 ```bash
-echo archlinux > /etc/hostname
+hostnamectl set-hostname archlinux.tavda.net
 ```
 
 Установим `grub` и `efibootmgr`, который нужен для установки grub на системах с EFI:
@@ -157,6 +159,11 @@ systemctl enable systemd-networkd
 systemctl enable systemd-resolved
 ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 ```
+
+Установите полезные пакеты:
+
+- btrfs-progs - утилиты для обслуживания btrfs;
+- mc - файловый менеджер Midnight Commander. 
 
 На этом можно завершить установку системы, выйти из chroot и перезапустить машину:
 

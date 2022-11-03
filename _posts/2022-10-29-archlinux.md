@@ -99,7 +99,7 @@ pacman -S vim
 ```bash
 vim /etc/locale.gen
 locale-gen
-localectl set-locale ru_RU.UTF-8
+echo "LANG=ru_RU.UTF-8" > /etc/locale.conf
 ```
 
 Для возможности отображения кириллицы необходимо использовать шрифт с её поддержкой. Это можно сделать в файле `/etc/vconsole.conf`:
@@ -112,7 +112,7 @@ KEYMAP=ru
 Установим имя хоста (для примера, `archlinux`)
 
 ```bash
-hostnamectl set-hostname archlinux.tavda.net
+echo "archlinux.local" > /etc/hostname
 ```
 
 Установим пакеты `grub` и `efibootmgr`. `efibootmgr` нужен для установки Grub на системах с EFI:
@@ -167,13 +167,7 @@ DHCP=yes
 ```bash
 systemctl enable systemd-networkd
 systemctl enable systemd-resolved
-ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 ```
-
-Установите полезные пакеты:
-
-- btrfs-progs - утилиты для обслуживания btrfs;
-- mc - файловый менеджер Midnight Commander.
 
 На этом можно завершить установку системы, выйти из chroot и перезапустить машину:
 
@@ -183,6 +177,24 @@ reboot
 ```
 
 После перезагрузки вы должны попасть в командную строку вашей свежеустановленной системы.
+
+Активируем возможность systemd-resolved управлять используемыми серверами DNS.
+
+```bash
+ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+```
+
+Если вас не устраивает локаль или имя хоста, то после загрузки системы вы можете изменить их с помощью утилит systemd:
+
+```bash
+localectl set-locale en_US.UTF-8
+hostnamectl set-hostname archlinux.tavda.net
+```
+
+Установите полезные пакеты:
+
+- btrfs-progs - утилиты для обслуживания btrfs;
+- mc - файловый менеджер Midnight Commander.
 
 Если у вас возникли проблемы с отображением символов, например, кириллицы, то можно воспользоваться инструкцией [Ранний запуск KMS](https://wiki.archlinux.org/title/Kernel_mode_setting#Early_KMS_start). Инструкция переведена на русский язык, но на момент написания в русскоязычной версии не было имён модулей для графических драйверов QEMU и VirtualBox, поэтому ссылка приведена для англоязычной версии. Выберите необходимый вам драйвер до добавьте его в параметр MODULES файла `/etc/mkinitcpio.conf`, например, для VirtualBox:
 

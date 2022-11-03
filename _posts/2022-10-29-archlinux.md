@@ -173,7 +173,7 @@ ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 Установите полезные пакеты:
 
 - btrfs-progs - утилиты для обслуживания btrfs;
-- mc - файловый менеджер Midnight Commander. 
+- mc - файловый менеджер Midnight Commander.
 
 На этом можно завершить установку системы, выйти из chroot и перезапустить машину:
 

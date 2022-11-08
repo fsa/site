@@ -4,17 +4,46 @@ title: Neuron Framework - объекты response
 excerpt: PHP фреймворк Neuron - объекты response
 ---
 
-Группа классов, позволяющих формировать ответ на запрос. Вся группа классов наследуется от классе `FSA\Neuron\Response`, который содержит следующие методы:
+## Группа классов Response
 
-* `redirection($location, $code = 302)` - выдаёт ответ HTML с кодом `$code` (по умолчанию - 302) и переадресацией по адресу `$location`, после чего завершает работу скрипта.
-* `return($response)` - выдаёт $response в виде строки и завершает работу скрипта.
-* `returnEmpty($code)` - выдаёт пустой ответ с кодом ответа HTML `$code`.
-* `returnError($http_response_code, $message=null)` - выдаёт код ответа HTML `$http_response_code` с сообщением `$message`, либо стандартным сообщением, описывающим код ответа HTML.
+Группа классов, позволяющих формировать ответ на запрос. Вся группа классов наследуется от класса `Response`.
 
-## FSA\Neuron\ResponseHtml
+## Класс Response
 
-Используется в случае, если использовался метод `App::initHtml()`.
+```php
+Response::redirection(
+    string $location,
+    int $code = 302
+): never
+```
 
-## FSA\Neuron\ResponseJson
+Выдаёт ответ HTML с кодом `code` и переадресацией по адресу `location`.
 
-Используется в случае, если использовался метод `App::initJson()`.
+```php
+Response::return(mixed $response): never
+```
+
+Выдаёт `response` в виде строки.
+
+```php
+Response::returnEmpty(int $code): never
+```
+
+Выдаёт пустой ответ с кодом ответа HTML `code`.
+
+```php
+Response::returnError(
+    int $http_response_code,
+    $message = null
+): never
+```
+
+Выдаёт код ответа HTML `http_response_code` с сообщением `message`, либо стандартным сообщением в соответствии с кодом ответа HTML.
+
+## Класс ResponseHtml
+
+Используется в случае, если использовался метод `App::initHtml()`. Имеет дополнительные методы.
+
+## Класс ResponseJson
+
+Используется в случае, если использовался метод `App::initJson()`. Имеет дополнительные методы.

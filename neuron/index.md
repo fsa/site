@@ -23,11 +23,16 @@ composer require fsa/neuron-framework
 
 Все классы фреймворка расположены в пространстве имён FSA\Neuron. Для начала использования фреймворка создайте [класс App](app).
 
-Разделы документации
+Разделы документации:
 
-* [Класс App](app)
-* [HTML шаблоны](templates)
-* [Файл настроек](settings)
-* [Объект response](response)
-* [Объект PostgreSQL](postgresql)
-* [Сессии пользователя](session)
+[Класс App](app)
+
+[HTML шаблоны](templates)
+
+[Файл настроек](settings)
+
+[Объект response](response)
+
+[Объект PostgreSQL](postgresql)
+
+[Сессии пользователя](session)

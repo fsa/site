@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: neuron
 title: Neuron Framework - объекты response
 excerpt: PHP фреймворк Neuron - объекты response
 ---

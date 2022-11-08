@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: neuron
 title: Neuron Framework
 excerpt: PHP фреймворк Neuron.
 ---

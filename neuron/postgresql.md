@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: neuron
 title: Neuron Framework - объект PostgreSQL
 excerpt: PHP фреймворк Neuron - объект PostgreSQL
 ---

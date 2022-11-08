@@ -2,7 +2,7 @@
 layout: default
 excerpt: Сообщения блога сгруппированные по ключевым словам
 ---
-# Заметки по ключевым словам
+<h1>Заметки по ключевым словам</h1>
 
 {% capture tags %}{% for tag in site.tags %}{{ tag[0] }},{% endfor %}{% endcapture %}
 {% assign sortedtags = tags | split:',' | sort %}

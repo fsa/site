@@ -1,14 +1,17 @@
 //@import "colors";
 $theme-colors-primary: #2A5A97;
 
-html,body {
+html,
+body {
     margin: 0;
     padding: 0;
     background-color: #ffffff;
 }
+
 html {
     height: 100%;
 }
+
 body {
     color: black;
     display: flex;
@@ -17,6 +20,7 @@ body {
     font-family: "Open Sans", "Sans-Serif";
     font-size: 1rem;
 }
+
 header {
     display: flex;
     flex-direction: row;
@@ -24,28 +28,34 @@ header {
     padding: 1rem 0;
     background-color: $theme-colors-primary;
     color: white;
+
     a {
         color: white;
         text-decoration: none;
     }
 }
+
 main {
     flex: 1;
     color: black;
     padding: 1rem;
     overflow: auto;
+
     h1 {
         font-size: 2rem;
         text-align: center;
     }
+
     h2 {
         font-size: 1.8rem;
         text-align: center;
     }
+
     h3 {
         font-size: 1.6rem;
         text-align: center;
     }
+
     h4 {
         font-size: 1.4rem;
         text-align: center;
@@ -54,11 +64,23 @@ main {
     p {
         text-align: justify;
     }
+
     img {
         max-width: 99%;
         border: 2px $theme-colors-primary solid;
     }
+
+    h1:after,
+    h2:after,
+    h3:after {
+        display: table;
+        width: 100%;
+        content: " ";
+        margin-top: -1px;
+        border-bottom: 1px dotted;
+    }
 }
+
 footer {
     display: flex;
     flex-direction: row;
@@ -66,10 +88,12 @@ footer {
     padding: 1rem 0;
     background-color: $theme-colors-primary;
     color: white;
+
     p {
         margin: 0;
         padding: 0 1rem;
     }
+
     a {
         color: white;
         text-decoration: none;
@@ -81,13 +105,16 @@ footer {
     flex-direction: row;
     padding: 0;
     width: 100%;
+
     .listitem {
         padding: 0 1rem;
     }
 }
+
 @media (max-width: 600px) {
     .listrow {
         flex-direction: column;
+
         .listitem {
             margin: 0;
             padding: 0.5rem 0;

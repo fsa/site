@@ -2,7 +2,7 @@
 <html lang="{{ page.lang | default: site.lang }}">
 <head>
 <meta charset="utf-8">
-<title>{% if doc_title %}{{ doc_title }}{% else %}{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}{% endif %}</title>
+<title>{% if page.section_title %}{{ page.section_title | append: " - " }}{% endif %}{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#2A5A97">
 <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">

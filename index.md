@@ -1,5 +1,6 @@
 ---
 layout: default
+title: Сайт FSA
 redirect_from:
   - /blog/
   - /posts

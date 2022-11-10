@@ -1,10 +1,9 @@
 ---
 layout: neuron
-title: Neuron Framework - объекты response
+title: Группа классов Response
+section_title: Neuron Framework
 excerpt: PHP фреймворк Neuron - объекты response
 ---
-
-## Группа классов Response
 
 Группа классов, позволяющих формировать ответ на запрос. Вся группа классов наследуется от класса `Response`.
 

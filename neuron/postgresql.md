@@ -1,10 +1,9 @@
 ---
 layout: neuron
-title: Neuron Framework - объект PostgreSQL
-excerpt: PHP фреймворк Neuron - объект PostgreSQL
+title: Класс PostgreSQL
+section_title: Neuron Framework
+excerpt: PHP фреймворк Neuron - класс PostgreSQL
 ---
-
-## Класс PostgreSQL
 
 Представляет из себя дочерний класс PDO.
 

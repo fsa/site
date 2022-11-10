@@ -1,6 +1,7 @@
 ---
 layout: neuron
-title: Neuron Framework - объект Session
+title: Класс Session
+section_title: Neuron Framework
 excerpt: PHP фреймворк Neuron - объект Session
 ---
 

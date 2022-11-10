@@ -25,8 +25,10 @@ Neuron - это PHP фреймворк, который был создан на 
 
 [Файл настроек](settings)
 
-[Объект response](response)
+[Классы Response](response)
 
-[Объект PostgreSQL](postgresql)
+[Класс PostgreSQL](postgresql)
+
+[Класс RedisDB](redisdb)
 
 [Сессии пользователя](session)

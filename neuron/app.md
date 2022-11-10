@@ -1,7 +1,6 @@
 ---
 layout: neuron
 title: Класс App
-section_title: Neuron Framework
 excerpt: PHP фреймворк Neuron - класс App
 ---
 

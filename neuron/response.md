@@ -1,7 +1,6 @@
 ---
 layout: neuron
 title: Группа классов Response
-section_title: Neuron Framework
 excerpt: PHP фреймворк Neuron - объекты response
 ---
 

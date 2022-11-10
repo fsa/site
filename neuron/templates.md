@@ -1,7 +1,6 @@
 ---
 layout: neuron
 title: Шаблоны
-section_title: Neuron Framework
 excerpt: PHP фреймворк Neuron - файлы шаблонов
 ---
 

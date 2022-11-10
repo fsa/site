@@ -1,7 +1,6 @@
 ---
 layout: neuron
 title: Класс PostgreSQL
-section_title: Neuron Framework
 excerpt: PHP фреймворк Neuron - класс PostgreSQL
 ---
 

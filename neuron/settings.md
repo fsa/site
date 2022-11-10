@@ -1,7 +1,6 @@
 ---
 layout: neuron
 title: Файл настроек
-section_title: Neuron Framework
 excerpt: PHP фреймворк Neuron - файл настроек
 ---
 

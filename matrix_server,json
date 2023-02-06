@@ -1,5 +1,1 @@
----
-layout: none
-permalink: /.well-known/matrix/server
----
 {"m.server": "matrix.tavda.org"}

@@ -1,13 +1,14 @@
 source "https://rubygems.org"
 
-gem "jekyll", "~> 4.1.0"
+gem "jekyll"
 
 group :jekyll_plugins do
-  gem "jekyll-feed", "~> 0.12"
+  gem "jekyll-feed"
   gem 'jekyll-redirect-from'
+  gem "webrick"
 end
 
 install_if -> { RUBY_PLATFORM =~ %r!mingw|mswin|java! } do
-  gem "tzinfo", "~> 1.2"
+  gem "tzinfo"
   gem "tzinfo-data"
 end

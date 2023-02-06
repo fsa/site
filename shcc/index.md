@@ -24,9 +24,9 @@ SHCC - сокращение от SmartHome Control Center.
 
 [Проект на Github](https://github.com/fsa/shcc).
 
-[Документация](https://docs.shcc.ru/).
+[Документация в репозитории проекта](https://github.com/fsa/shcc/blob/main/docs/index.md).
 
-[Документация для версии в разработке на Github](https://github.com/fsa/shcc/blob/devel/docs/index.md).
+[Документация в репозитории проекта версии в разработке](https://github.com/fsa/shcc/blob/devel/docs/index.md).
 
 ## Скриншоты
 
@@ -34,12 +34,12 @@ SHCC - сокращение от SmartHome Control Center.
 
 ### Основной экран
 
-![Главный экран](/shcc/pc_main.png)
+![Главный экран](pc_main.png)
 
 ### Отображение данных в виде графиков
 
-![Графики](/shcc/pc_charts.jpg)
+![Графики](pc_charts.jpg)
 
 ### Отображение списка имеющегося и обнаруженного оборудования и управление им
 
-![Устройства](/shcc/pc_devices.png)
+![Устройства](pc_devices.png)

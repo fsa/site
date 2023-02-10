@@ -131,6 +131,8 @@ podman run -d -it --pod matrix --name synapse \
     matrixdotorg/synapse:latest
 ```
 
+Теперь сервер прослушивает порт 8008.
+
 Создание новых пользователей на сервере отключено по умолчанию. Поэтому чтобы создать сервер подключимся к контейнеру с Synapse:
 
 ```bash
@@ -148,8 +150,6 @@ Make admin [no]:
 Sending registration request...
 Success!
 ```
-
-Теперь сервер прослушивает порт 8008.
 
 ## Вывод сервера в интернет с помощью nginx
 

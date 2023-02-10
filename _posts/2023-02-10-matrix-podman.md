@@ -203,6 +203,8 @@ certbot certonly --dns-cloudflare --dns-cloudflare-credentials /root/cloudflare.
 dns_cloudflare_api_token = "API_TOKEN"
 ```
 
+Конфигурация виртуального хоста для проксирования запросов на сервер synapse. В примере указано включить прослушивание портов 8448 и 443 по протоколам IPv4 и IPv6.
+
 ```nginx
 server {
     listen 443 ssl http2;
@@ -212,8 +214,6 @@ server {
     listen [::]:8448 ssl default_server;
 
     server_name matrix.example.org;
-
-    access_log off;
 
     ssl_certificate /etc/letsencrypt/live/example.org/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/example.org/privkey.pem;

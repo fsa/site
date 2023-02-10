@@ -29,6 +29,12 @@ podman pull postgres:15-alpine
 podman pod create --name matrix -p 8008:8008
 ```
 
+Если ваша машина имеет белый IP адрес, то стоит ограничить прослушивание портов только адресом 127.0.0.1:
+
+```bash
+podman pod create --name matrix -p 127.0.0.1:8008:8008
+```
+
 После этого можно проверить его наличие с помощью команды
 
 ```console
@@ -46,7 +52,7 @@ podman run -d -it --pod matrix --name synapse-db \
     -e POSTGRES_USER=synapse \
     -e POSTGRES_PASSWORD=SUPER_PASSWORD \
     -e "POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C" \
-    -v synapse_db_data:/var/lib/postgresql/data:Z \
+    -v synapse-db-data:/var/lib/postgresql/data:Z \
     docker.io/library/postgres:15-alpine
 ```
 
@@ -134,7 +140,7 @@ podman exec -it synapse /bin/bash
 Зарегистрируем нового пользователя:
 
 ```console
-root@synapse:/# register_new_matrix_user -c /data/homeserver.yaml http://localhost:8008
+root@synapse:/# register_new_matrix_user -c /data/homeserver.yaml
 New user localpart [root]: fsa
 Password: 
 Confirm password: 
@@ -145,7 +151,78 @@ Success!
 
 Теперь сервер прослушивает порт 8008.
 
-Продолжение следует...
+## Вывод сервера в интернет с помощью nginx
+
+Чтобы обеспечить федерацию и безопасный доступ к серверу ваших пользователей необходимо использовать TLS соединение, поэтому необходимо получить сертификат. Самый простой способ сделать это на уровне системы без контейнера. В качестве сервера будем использовать сервер nginx, который и будет использовать эти сертификаты.
+
+Установите сервер nginx и клиента certbot как это делается в вашей операционной системе.
+
+Оптимальным способом получения сертификатов является `DNS Challenge`, поскольку он позволяет выпускать Wildcard сертификаты. Для этого требуется установить плагин для вашего DNS провайдера. Одним из популярных является Cloudflare. Получить сертификат можно с помощью команды:
+
+```bash
+certbot certonly --dns-cloudflare --dns-cloudflare-credentials /root/cloudflare.ini -d example.org,*.example.org
+```
+
+Для вашей аутентификации необходимо предоставить ранее полученный токен, который сохраняется в файл, например, `/root/cloudflare.ini`:
+
+```ini
+dns_cloudflare_api_token = "API_TOKEN"
+```
+
+```nginx
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    listen 8448 ssl default_server;
+    listen [::]:8448 ssl default_server;
+
+    server_name matrix.example.org;
+
+    access_log off;
+
+    ssl_certificate /etc/letsencrypt/live/example.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.org/privkey.pem;
+
+    root /var/www/matrix/webroot;
+    index index.html;
+
+    location ~* ^(\/_matrix|\/_synapse\/client) {
+        proxy_pass http://127.0.0.1:8008;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $host;
+
+        client_max_body_size 10M;
+    }
+}
+```
+
+Чтобы переадресовывать запросы по протоколу http, можно добавить следующие настройки
+
+```nginx
+server {
+    listen 80;
+    listen [::]:80 default_server;
+    server_name matrix.example.org;
+    return 301 https://$server_name$request_uri;
+}
+```
+
+Что немаловажно, можно разместить сервер nginx на другой машине и использовать между машинами VPN туннель. Например, можно использовать дешёвый VPS сервер с белым IP адресом, а сервер Synapse разместить у себя дома. В этом случае все запросы будут попадать на вашу машину через VPN туннель. Для домашнего сервера даже не нужен белый IP адрес. В этом случае в секции `proxy_pass` необходимо указать адрес вашего сервера Synapse в туннеле.
+
+```nginx
+...
+    location ~* ^(\/_matrix|\/_synapse\/client) {
+        proxy_pass http://[fd00::2]:8008;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $host;
+
+        client_max_body_size 10M;
+    }
+...
+```
 
 ## Список литературы
 

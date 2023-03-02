@@ -11,3 +11,4 @@ plugins:
 exclude:
   - jekyll.sh
   - CNAME
+yandex_rtb: YANDEX_RTB

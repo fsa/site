@@ -1,10 +1,10 @@
 ---
 layout: default
 ---
-{% if yandex_rtb!="" %}
-{% include yandex_rtb_R-A-2013172-1.html %}
-{% else %}
+{% if yandex_rtb == undefined %}
 {% include yandex_rtb_R-A-1960941-1.html %}
+{% else %}
+{% include {{ yandex_rtb | append: '.html' }} %}
 {% endif %}
 <div class="post-date">{{ page.date | date: "%d.%m.%Y" }}</div>
 <h1>{{ page.title }}</h1>

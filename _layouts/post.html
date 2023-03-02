@@ -3,7 +3,7 @@ layout: default
 ---
 {% if jekyll.environment == "gitlab" %}
 {% include yandex_rtb_R-A-2013172-1.html %}
-{% else %}
+{% elsif jekyll.environment == "production" %}
 {% include yandex_rtb_R-A-1960941-1.html %}
 {% endif %}
 <div class="post-date">{{ page.date | date: "%d.%m.%Y" }}</div>

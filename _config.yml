@@ -12,3 +12,4 @@ exclude:
   - jekyll.sh
   - CNAME
 yandex_rtb: ENV_YANDEX_RTB
+

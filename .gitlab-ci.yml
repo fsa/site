@@ -1,9 +1,8 @@
 image: ruby:latest
 
 variables:
-  JEKYLL_ENV: production
+  JEKYLL_ENV: gitlab
   LC_ALL: ru_RU.UTF-8
-  YANDEX_RTB: yandex_rtb_R-A-2013172-1
 
 before_script:
   - gem install bundler

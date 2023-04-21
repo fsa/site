@@ -3,7 +3,7 @@ layout: post
 title: Я установил себе Fedora
 date: 2021-04-10 00:33:45 +0700
 lastmod: 2022-02-22 22:02 +0500
-tags: [Linux, Fedora, nginx, PostgreSQL, PHP]
+tags: [Linux, Fedora, nginx, PostgreSQL, PHP, Firewalld]
 excerpt: Делюсь опытом по настройке Fedora
 ---
 ## Первое знакомство

@@ -38,6 +38,8 @@ sudo dnf config-manager --set-disabled fedora-cisco-openh264
 sudo dnf remove openh264 mozilla-openh264 gstreamer1-plugin-openh264
 ```
 
+Примечание. В обновлениях `ffmpeg` после `6.0-6` (май 2023 года) указанный репозиторий стал необходим.
+
 Подключение RPM Fusion со свободным и не свободным софтом согласно [неофициальному FAQ по Fedora](https://russianfedora.github.io/FAQ/generic-info.html#rpm-fusion):
 
 ```bash

@@ -12,7 +12,7 @@ composer create-project symfony/skeleton:"7.0.*" ИМЯ_ПРОЕКТА
 composer require logger
 ```
 
-Будет установлен `symfony/monolog-bundle`
+Скрипт спросит что необходимо установить или будет установлен `symfony/monolog-bundle`
 
 Настроить лог в journald, для примера в dev окружении
 
@@ -34,7 +34,7 @@ composer require phpunit/phpunit --dev
 composer require symfony/browser-kit --dev
 ```
 
-Установка утилита для создания шаблонного кода
+Установка утилиты для создания шаблонного кода
 
 ```bash
 composer require --dev symfony/maker-bundle

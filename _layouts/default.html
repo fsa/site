@@ -12,16 +12,20 @@
 <link rel="canonical" href="{{ site.url }}{{ site.baseurl }}{{ page.url | replace:'index.html',''}}">
 </head>
 <body>
-<header>
-<nav class="listrow">
-    <a href="/" class="listitem">Сайт FSA</a>
-    <a href="/tags" class="listitem">Теги</a>
-    <a href="/shcc/" class="listitem">SHCC</a>
-    <a href="/games" class="listitem">Игры</a>
-    <a href="/archive" class="listitem">Архив</a>
-    <a href="/support" class="listitem">Поддержать</a>
-    <a href="https://github.com/fsa/" class="listitem">Github</a>
-</nav>
+<header class="top-nav">
+    <div><a href="/">Сайт FSA</a></div>
+    <input id="menu-toggle" type="checkbox" />
+    <label class='menu-button-container' for="menu-toggle">
+        <div class='menu-button'></div>
+    </label>
+    <ul class="menu">
+    <li><a href="/tags">Теги</a></li>
+    <li><a href="/shcc/">SHCC</a></li>
+    <li><a href="/games">Игры</a></li>
+    <li><a href="/archive">Архив</a></li>
+    <li><a href="/support">Поддержать</a></li>
+    <li><a href="https://github.com/fsa/">Github</a></li>
+    </ul>
 </header>
 <main>
 {{ content }}

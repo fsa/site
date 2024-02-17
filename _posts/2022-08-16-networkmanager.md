@@ -174,3 +174,27 @@ NetworkManager может управлять соединениями через
 ```bash
 nmcli connection import type wireguard file wg0.conf
 ```
+
+## IPv6 и делегирование префиксов
+
+Если ваша сеть позволяет делегировать префиксы IPv6, то можно указать какой префикс вы желаете получить при подключении к этой сети:
+
+```bash
+nmcli connection modify NAME ipv6.dhcp-pd-hint ::/62
+```
+
+В качестве параметра вы можете указать адрес IPv6, за которым следует косая черта и длина префикса. Если адрес установлен, то значение отправляется на сервер DHCPv6 в качестве подсказки, указывающей какой префикс вы хотите получить. В данном случае была указана только длина префикса («::/62»), будут получены префиксы доступные префиксы, например, для GUA и ULA.
+
+Запрошенные префиксы могут быть выданы на необходимые интерфейсы с помощью параметра `ipv6.method` со значением `shared`:
+
+```bash
+nmcli connection modify cni-podman1 ipv6.method shared
+```
+
+<!--
+```bash
+ip link add name br-kvm type bridge
+ip link set dev br-kvm up
+nmcli connection add type bridge ifname br-kvm con-name br-kvm ipv6.method shared
+```
+-->

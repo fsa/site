@@ -125,7 +125,7 @@ systemctl enable --now wg-quick@wg0
 
 ## Превращаем сервер в шлюз
 
-Для превращения вашего сервера в шлюз необходимо включить NAT. Это можно сделать разными способами, в том числе с использованием iptables или Firewalld.
+Для превращения вашего сервера в шлюз необходимо включить NAT. Это можно сделать разными способами, в том числе с использованием iptables, nftables или Firewalld.
 
 ### Использование iptables
 
@@ -136,7 +136,22 @@ PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEP
 PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o ens3 -j MASQUERADE
 ```
 
-где ens3 - это ваш сетевой интерфейс, который имеет белый IP адрес. Вместо режима MASQUERADE, конечно, можно применить другие методы NAT.
+где ens3 - это ваш сетевой интерфейс, который имеет белый IP адрес.
+
+### Настройка nftables
+
+В версиях Debian 11 и новее из состава исключен iptables. Этот пакет по прежнему можно установить и использовать, однако, по факту, он транслирует свои правила для nftables. Чтобы не было необходимости его устанавливать, можно воспользоваться непосредственно nftables. Для этого необходимо отредактировать файл `/etc/nftables.conf` и добавить в него следующее правило трансляции:
+
+```nft
+table ip NAT {
+    chain my_masquerade {
+        type nat hook postrouting priority 100; policy accept;
+        ip saddr { 10.8.0.0/24 } oifname "ens3" masquerade comment "outgoing NAT"
+    }
+}
+```
+
+При этом необходимо указать диапазон сети, которую вы используете и внешний интерфейс. В данном примере указана сеть `10.8.0.0/24` и интерфейс `ens3`.
 
 ### Настройка Firewalld
 

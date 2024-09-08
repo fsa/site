@@ -1,8 +1,6 @@
 ---
 layout: default
 excerpt: Поддержите меня финансово
-redirect_from:
-  - /download/
 ---
 # Поддержать
 

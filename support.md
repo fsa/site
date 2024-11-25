@@ -10,4 +10,4 @@ excerpt: Поддержите меня финансово
 
 Кроме этого, вы можете воспользоваться СБП и перевести любую сумму по номеру телефона +79022544211 (Сергей Ф.) ЮМани.
 
-Биткойн кошелёк <bitcoin:bc1qyx9fgqncg4v5cpgscslutl65x9ndzz2723tcpc?message=tavda.net>.
+Биткойн кошелёк [bitcoin:bc1qyx9fgqncg4v5cpgscslutl65x9ndzz2723tcpc](bitcoin:bc1qyx9fgqncg4v5cpgscslutl65x9ndzz2723tcpc?message=tavda.net).

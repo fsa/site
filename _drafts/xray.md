@@ -65,3 +65,9 @@ vless://<uuid>@<IP-адрес сервера>:443?type=tcp&security=reality&pbk=
 ```bash
 qrencode -t ansiutf8 < client_config.txt
 ```
+
+Сборка
+
+```bash
+CGO_ENABLED=0 go build -o xray -trimpath -buildvcs=false -ldflags="-s -w -buildid=" -v ./main
+```

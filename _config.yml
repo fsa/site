@@ -1,6 +1,6 @@
 lang: ru-RU
 title: Сайт FSA
-url: https://tavda.net
+url: https://tavda.org
 sass:
   sass_dir: _scss
   style: compressed

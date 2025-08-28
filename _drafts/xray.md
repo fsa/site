@@ -135,6 +135,56 @@ qrencode -t ansiutf8 < client_config.url
     "log": {
         "level": "info"
     },
+    "inbounds": [
+        {
+            "listen": "::",
+            "port": 1080,
+            "protocol": "socks",
+            "settings": {
+            "udp": true
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "vless",
+            "settings": {
+            "vnext": [
+                {
+                    "address": "MY_SERVER",
+                    "port": 443,
+                    "users": [
+                        {
+                            "id": "UUID",
+                            "encryption": "none",
+                            "flow": "xtls-rprx-vision"
+                        }
+                    ]
+                }
+            ]
+        },
+        "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+                "realitySettings": {
+                    "fingerprint": "chrome",
+                    "serverName": "EXAMPLE.COM",
+                    "publicKey": "PUBLIC_KEY",
+                    "shortId": "0a381e1fa219"
+                }
+            },
+            "tag": "proxy"
+        }
+    ]
+}
+```
+
+Конфигурацию можно дополнить правилами маршрутизации. Так можно перенаправлять определённые домены на определённые прокси или без используя теги объектов из `"outbounds"`, например, не использовать прокси дл некоторых доменов (в примере указаны `2ip.ru` и `2ip.io`(.
+
+```json
+{
+    "log": {
+        "level": "info"
+    },
     "routing": {
         "rules": [
             {
@@ -205,8 +255,6 @@ qrencode -t ansiutf8 < client_config.url
     ]
 }
 ```
-
-Секция `"routing"` не обязательная. С её помощью можно перенаправлять определённые домены на определённые прокси или без используя теги объектов из `"outbounds"`.
 
 ## Конфигурация sing-box
 

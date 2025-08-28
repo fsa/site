@@ -36,6 +36,29 @@ LimitNOFILE=1000000
 WantedBy=multi-user.target
 ```
 
+Если есть необходимость запуска нескольких экземпляров Xray с разными настройками, `xray@.service`:
+
+```systemd
+[Unit]
+Description=Xray Service
+Documentation=https://github.com/xtls
+After=network.target nss-lookup.target
+
+[Service]
+User=xray
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+NoNewPrivileges=true
+ExecStart=/opt/xray run -config /etc/xray/%i.json
+Restart=on-failure
+RestartPreventExitStatus=23
+LimitNPROC=10000
+LimitNOFILE=1000000
+
+[Install]
+WantedBy=multi-user.target
+```
+
 В качестве имени пользователя и группы указаны `xray`. Необходимо создать такого пользователя или указать своего. Файл конфигурации должен быть расположен в файле `/etc/xray/config.json` (это указано в ранее в файле xray.service). Прежде чем создавать файл необходимо создать случайно сгенерированные параметры:
 
 ```bash

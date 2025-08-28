@@ -126,6 +126,88 @@ vless://<UUID>@<SERVER_ADDR>:443?type=tcp&security=reality&pbk=<PUBLIC_KEY>&fp=c
 qrencode -t ansiutf8 < client_config.url
 ```
 
+## Конфигурация Xray на клиенте
+
+Собираем xray на клиенте аналогично как и на сервере. Пример конфигурации в качестве клиента приведён ниже.
+
+```json
+{
+    "log": {
+        "level": "info"
+    },
+    "routing": {
+        "rules": [
+            {
+                "type": "field",
+                "domain": [
+                    "2ip.ru",
+                    "2ip.io"
+                ],
+                "outboundTag": "direct"
+            }
+        ]
+    },
+    "inbounds": [
+        {
+            "listen": "::",
+            "port": 1080,
+            "protocol": "socks",
+            "settings": {
+            "udp": true
+        },
+        "sniffing":
+            {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ],
+                "routeOnly": true
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "vless",
+            "settings": {
+            "vnext": [
+                {
+                    "address": "MY_SERVER",
+                    "port": 443,
+                    "users": [
+                        {
+                            "id": "UUID",
+                            "encryption": "none",
+                            "flow": "xtls-rprx-vision"
+                        }
+                    ]
+                }
+            ]
+        },
+        "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+                "realitySettings": {
+                    "fingerprint": "chrome",
+                    "serverName": "EXAMPLE.COM",
+                    "publicKey": "PUBLIC_KEY",
+                    "shortId": "0a381e1fa219"
+                }
+            },
+            "tag": "proxy"
+        },
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        }
+
+    ]
+}
+```
+
+Секция `"routing"` не обязательная. С её помощью можно перенаправлять определённые домены на определённые прокси или без используя теги объектов из `"outbounds"`.
+
 ## Конфигурация sing-box
 
 В качестве клиента для Linux можно использовать `sing-box`. Например, чтобы можно создать socks прокси для локальной машины или локальной сети:

@@ -9,6 +9,13 @@ setopt COMPLETE_IN_WORD
 # Опции
 setopt AUTOCD
 
+# Подсветка синтаксиса (требует пакет zsh-syntax-highlighting)
+if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [ -f $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
 # git prompt
 autoload -Uz vcs_info
 precmd() { vcs_info }

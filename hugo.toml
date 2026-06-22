@@ -2,7 +2,7 @@ baseURL = "https://tavda.net/"
 languageCode = "ru-RU"
 title = "Сайт FSA"
 timezone = "Asia/Novosibirsk"
-uglyURLs = true
+uglyURLs = false
 
 [markup]
   [markup.goldmark]
@@ -11,9 +11,6 @@ uglyURLs = true
 
 [taxonomies]
   tag = "tags"
-
-[permalinks]
-  posts = "/:slug/"
 
 [outputs]
   home = ["HTML", "RSS", "sitemap"]

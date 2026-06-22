@@ -7,18 +7,18 @@ description: PHP фреймворк Neuron.
 
 Проект закрыт. Свою фукнцию моего обучения он выполнил. В настоящее время я перевожу свои проект на фреймворк Symfony. Он сложнее в развёртывании, но по скорости работы не уступает. При этом имеет продуманную архитектуру. Если вы обращали внимание на мой проект, советую вам обратить внимание на Symfony.
 
-[Первое знакомство](helloworld)
+[Первое знакомство]({{< relref "helloworld" >}})
 
-[Класс App](app)
+[Класс App]({{< relref "app" >}})
 
-[HTML шаблоны](templates)
+[HTML шаблоны]({{< relref "templates" >}})
 
-[Файл настроек](settings)
+[Файл настроек]({{< relref "settings" >}})
 
-[Классы Response](response)
+[Классы Response]({{< relref "response" >}})
 
-[Класс PostgreSQL](postgresql)
+[Класс PostgreSQL]({{< relref "postgresql" >}})
 
-[Класс RedisDB](redisdb)
+[Класс RedisDB]({{< relref "redisdb" >}})
 
-[Сессии пользователя](session)
+[Сессии пользователя]({{< relref "session" >}})

@@ -1,0 +1,411 @@
+---
+title: Опыт установки сервера Matrix Synapse
+slug: "matrix"
+date: 2020-03-31 13:27:00 +0700
+tags: [Matrix, Synapse, nginx]
+description: Статья по установке и настройке собственного Matrix сервера
+---
+Эта заметка поможет вам установить свой собственный сервер сети Matrix. В ней описан один из вариантов настройки сервера без использования систем контейнеризации. Во время чтения вы узнаете как:
+
+- настроить сервер Matrix Synapse;
+- настроить кеширующий прокси-сервер nginx;
+- настроить федерацию с другими серверами сети Matrix;
+- установить веб-клиент Element и обеспечить его обновление;
+- перенести свой сервер на другой машину с минимальным простоем пользуясь возможностями nginx;
+- настроить журналирование с использованием journald из состава systemd.
+
+## Что такое Matrix?
+
+Это полностью открытая сеть для обмена сообщениями с очень широким функционалом. По своим возможностям она ничем не уступает другим закрытым сетям, а в некоторых случаях даже превосходит их. Протокол сети Matrix - открытый протокол. В отличие от своих конкурентов, например, Telegram, Signal, Whatsapp, вы можете самостоятельно развернуть свой сервер обмена информации и передавать информацию только через него, обеспечивая безопасность своих коммуникаций самостоятельно. При этом вы не будете изолированы от других серверов, потому что серверы Matrix способны объединяться в федерацию! Достаточно указать в записях DNS или на вашем основном веб сервере путь до вашего сервера Matrix (а в некоторых случаях и этого делать не нужно, всё будет работать само), и вы сможете общаться с пользователями других серверов, правда, с учётом того, что вы теряете полный контроль над безопасностью общения. По сравнению с другой открытой сетью XMPP, сеть Matrix активно развивается. Имеются клиенты для различных операционных систем и устройств. В популярных клиентах поддерживается шифрование, доступное "из коробки".
+
+Matrix Synapse - эталонная реализация сервера для протокола Matrix. Она имеет открытый исходный код и написана на языке Python. Сервер может быть установлен как через контейнеры, так и непосредственно на операционную систему. Если вы не хотите использовать контейнеры, то оптимальным выбором для вас являются две операционные системы Linux:
+
+- Fedora - в официальных репозиториях есть относительно свежая версия сервера;
+- Ubuntu - для неё имеется отдельный PPA-репозиторий с самой свежей версией сервера от разработчиков.
+
+При использовании других систем вы можете не получить актуальные версии сервера, что в условиях активного развития экосистемы может ограничить ваши возможности в общении. В любом случае, вы можете использовать исходный код сервера и самостоятельно собрать актуальную версию на любой поддерживаемой операционной системе, найти подходящие репозитории для вашей операционной системы или использовать пакетный менеджер pip.
+
+Имена учётных записей на сети Matrix составляются из нескольких компонентов: учётная запись на сервере и доменное имя сервера. Таким образом, чтобы стать владельцем своего Matrix сервера вам необходимо доменное имя. Это может быть как общедоступный домен, так и внутренний. В первом случае вы легко можете обеспечить федерацию с другим серверами. В другом случае, вы будете общаться локально. В любом случае, ваша учётная запись на сервере будет представлять что-то вроде этого: @user:domain.name, где user - имя пользователя на сервере, domain.name - ваше доменное имя. Символ @ означает, что это учётная запись. В противовес ей есть символ #, который означает адрес комнаты для общения.
+
+## Установка Matrix Synapse
+
+Установка Matrix MSynapse в Fedora выполняется с помощью установки пакета matrix-synapse. Установку в Ubuntu можно выполнить штатными средствами, но есть возможность подключить репозиторий от разработчиков в соответствии с [документацией][doc-install-matrix-synapse-debian-ubuntu]. Использование репозитория позволит получать вам наиболее актуальную версию сервера.
+
+Изначально, сервер предлагает использовать базу данных SQLite. Однако это вариант значительно нагружает сервер даже при небольшой нагрузке, поэтому если вы для тестирования разворачиваете сервер, который в будущем будет подключен к федерации, то я не рекомендую изначально использовать SQLite. Перед запуском сервера лучше обеспечить доступ к PostgreSQL и указать реквизиты доступа в файле конфигурации.
+
+### Размещение настроек Matrix Synapse
+
+Если вы пользуетесь официальным репозиторием разработчиков, то могли заметить наличие в папке настроек Matrix Synapse (`/etc/matrix-synapse`) папки conf.d. Для упрощения обновления Matrix Synapse лучше не изменять основной файл конфигурации, а использовать свой файл. Для этого создайте в папке conf.d файл с именем вашего домена и расширением yaml. Внесите необходимые изменения в настройки. Всё, что будет указано в этом файле будет использовано вместо аналогичных параметров в основном файле конфигурации. Таким образом, при обновлении Matrix Synapse до текущей версии не будет необходимости производить слияние файла конфигурации с новой версией.
+
+Пример настройки:
+
+```yaml
+server_name: example.org
+
+listeners:
+  - port: 8008
+    tls: false
+    bind_addresses: ['::1', '127.0.0.1']
+    type: http
+    x_forwarded: true
+
+    resources:
+      - names: [client, federation]
+        compress: false
+
+no_tls: true
+
+# Database configuration
+database:
+  name: "psycopg2"
+  args:
+    user: "synapse"
+    password: "password"
+    database: "synapse"
+    host: "localhost"
+    cp_min: 5
+    cp_max: 10
+
+# Number of events to cache in memory.
+event_cache_size: "10K"
+
+max_upload_size: "10M"
+max_image_pixels: "32M"
+
+turn_uris: ["turn:turn.example.com?transport=udp", "turn:turn.example.com?transport=tcp"]
+turn_shared_secret: "SHARED_SECRET"
+turn_user_lifetime: "1h"
+turn_allow_guests: True
+
+enable_registration: False
+
+macaroon_secret_key: "MACAROON_SECRET_KEY"
+
+suppress_key_server_warning: true
+
+experimental_features:
+    spaces_enabled: true
+```
+
+С данными настройками сервер прослушивает порт 8008 на 127.0.0.1 и ::1, т.е. недоступен из внешних сетей. При этом для соединения не используется TLS. Такая настройка удобна, если используется сервер nginx в качестве прокси.
+
+### Настройка сервера nginx
+
+Nginx используется в качестве прокси. Пример конфигурации сервера nginx
+
+```nginx
+server {
+    listen 443 ssl http2;
+    listen [aaa::aaa]:443 ssl http2 default_server;
+    listen 8448 ssl default_server;
+    listen [aaa::aaa]:8448 ssl default_server;
+
+    server_name matrix.example.com;
+
+    access_log /var/log/nginx/matrix_access.log;
+    error_log /var/log/nginx/matrix_error.log;
+
+    ssl_certificate /etc/letsencrypt/live/matrix.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/matrix.example.com/privkey.pem;
+
+    root /var/www/matrix/webroot;
+    index index.html;
+
+    location /_matrix {
+        proxy_pass http://127.0.0.1:8008;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme; # Обязательно указывать для версии >=v1.29
+        proxy_set_header Host $host;
+
+        client_max_body_size 10M;
+
+        # set_real_ip_from xx.xx.xx.xx;
+        # real_ip_header X-Forwarded-For;
+        # real_ip_recursive on;
+    }
+    include acme.conf;
+}
+```
+
+В данной конфигурации производится прослушивание двух портов (443 и 8448), а также двух типов IP адресов IPv4 и IPv6. При этом по IPv4 порт 443 кроме Matrix может обслуживать и другие веб-сайты. Для IPv6 для сервиса Matrix выделен отдельный IP-адрес [aaa::aaa] и другие сайты недоступны через этот порт.
+
+Порт 8448 используется исключительно для Matrix Synapse. Для этого порта не используется SNI (Server Name Indication, с которым были проблемы в старых версиях Matrix Synapse).
+
+В качестве `server_name` необходимо указать своё доменное имя.
+
+Файлы логов доступа и ошибок размещены в стандартном месте. Если лог доступа не нужен, укажите вместо пути значение `off`. Если просто закомментировать строки, то лог будет писаться в соответствии с общими настройками nginx. Отключить лог ошибок с помощью значения `off` нельзя!!!
+
+Пути к сертификату и ключу указаны стандартные для Let's Encrypt, полученных через Certbot. Эти строки необходимы для работы протокола https.
+
+Ключ `client_max_body_size` указывает на максимальный размер запроса, фактически это ограничение на размер загружаемых на сервер файлов, т.к. эти запросы самые объёмные. В данном случае указано ограничение в 10 мегабайт.
+
+Ключи root и index указывают на папку с содержимым веб-сайта и файл по умолчанию. В данном случае рассчитывается, что по данному пути будет расположен веб-клиент Element. Благодаря этому подключиться к серверу через браузер можно будет просто введя адрес <https://matrix.example.com/>. При этом будет запущен клиент Element.
+
+Секция location обеспечивает доступ к API matrix-synapse. Закомментированные строки позволяют получить реальный IP адрес пользователя, если он был подключен через доверенный прокси по адресу xx.xx.xx.xx. Адрес клиента в этом случае берётся из заголовка X-Forwarded-For, который добавляет вышестоящий прокси, а не из IP-адреса источника. По этом причине не следует указывать адреса прокси серверов, которым вы не доверяете, поскольку они могут легко указать любой адрес или не указывать заголовок совсем. Эти же настройки вышестоящего прокси могут быть перенесены непосредственно в секцию server, тогда они будут действовать на любые контексты на сайте matrix.example.com.
+
+При смене IP адреса вашего matrix-synapse пропишите в настройках nginx на старом сервере следующее:
+
+```nginx
+    location / {
+        proxy_pass https://yy.yy.yy.yy;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+```
+
+В качестве адреса сервера yy.yy.yy.yy необходимо указать IP адрес вашего нового сервера (не доменное имя, т.к. оно может всё ещё указывать на текущий сервер).
+
+Последний пункт конфигурации нужен для прохождения проверки при получении нового сертификата Let's Encrypt. Содержимое файла `/etc/nginx/acme.conf`:
+
+```nginx
+location ~ /.well-known/acme-challenge/(.*) {
+    default_type "text/plain";
+    root /var/letsencrypt;
+    allow all;
+}
+```
+
+Папка `/var/letsencrypt` создана вручную и должна быть указана при создании нового сертификата как webroot, например:
+
+```bash
+certbot certonly --webroot -w /var/letsencrypt -d matrix.example.com
+```
+
+Для того, чтобы метод `webroot` работал с nginx, необходимо установить плагин для Certbot. В Ubuntu это пакет `py3-certbot-nginx`, в Fedora - `python3-certbot-nginx`. Использование метода `webroot` позволяет обновлять сертификаты в автоматическом режиме. После обновления сертификатов Certbot отправляет сигнал сервису nginx и он перезагружает данные сертификатов.
+
+### Журналирование с помощью journald
+
+При желании, можно вести логи с использованием journald, входящего в состав systemd. Для этого необходимо в настройках nginx в качестве путей указать следующие значения:
+
+```nginx
+    access_log syslog:server=unix:/dev/log,nohostname,tag=matrix journal;
+    error_log syslog:server=unix:/dev/log,nohostname,tag=matrix;
+```
+
+Тег matrix можно заменить на любой другой удобный вам. Он позволит быстро находить сообщения, например, можно просматривать текущий лог событий `journalctl -t matrix -f` (по аналогии с `tail -f /var/log/...`). При использовании разных тегов на виртуальных хостах nginx значение имени хоста будет излишним. Можно сократить размер сообщения за счёт удаления информации о хосте. Для этого указан параметр `nohostname`.
+
+Формат сообщений лога задаётся в секции http конфигурации nginx, например, так:
+
+```nginx
+    log_format journal '$remote_addr "$http_referer" "$request" '
+                       '$status $body_bytes_sent '
+                       '"$http_user_agent" "$http_x_forwarded_for"';
+```
+
+Можно определить несколько форматов ведения журнала. В данном случае используется имя journal, которое указывается в директиве access_log.
+
+Matrix Synapse также можно заставить писать логи в journald. Пример настроек:
+
+```yaml
+formatters:
+    journal_fmt:
+        format: '%(name)s: [%(request)s] %(message)s'
+
+handlers:
+    journal:
+        class: systemd.journal.JournalHandler
+        formatter: journal_fmt
+        filters: [context]
+        SYSLOG_IDENTIFIER: synapse
+
+root:
+    level: INFO
+    handlers: [journal]
+
+disable_existing_loggers: False
+```
+
+## Установка TURN-сервера coturn
+
+Для аудио и видеозвонков требуется установка TURN сервера, который обеспечит клиентам, которые расположены за NAT, эту возможность. Фактически, это большинство клиентов, т.к. при использовании маршрутизатора дома, функцию NAT выполняет он, а при использовании мобильного интернета, эту функцию использует ваш мобильный оператор. [Рекомендации по настройке можно найти на сайте matrix.org][coturn-setup-doc]. Мой [вольный перевод этого Howto](https://tavda.net/matrix-coturn).
+
+Для TURN сервера рекомендую использовать отдельное доменное имя, что позволит вам легко изменять его местоположение, например, установить дома или на хостинге, и, при необходимости, перенести.
+
+Адреса TURN сервера нужно указать в настройках Matrix Synapse, как было указано ранее в примере конфигурации.
+
+## Настройка обнаружения сервера на домене
+
+### Настройка федерации с другими серверами
+
+Начиная с версии Matrix Synapse 1.0 не требуется каким либо-образом сообщать, что у вас используется Matrix сервер, если ваш сервер отвечает по адресу домена, используемого в учётных записях пользователей, и порту 8448. Если эти данные отличаются, то можно сообщить другим серверам где находится сервер. Сделать это можно двумя способами:
+
+1. с помощью записей SRV в DNS;
+2. с помощью специальных унифицированных идентификаторов ресурсов (URIs) в папке /.well-known/.
+
+Первый способ не требует вмешательства в работу основного веб-сайта. Для идентификации Matrix сервера создаётся запись SRV _matrix._tcp:
+
+```console
+_matrix._tcp.example.com. 3600 IN SRV 10 5 8448 matrix.example.com.
+```
+
+Она содержит номер порта (8448) и адрес сервера, который отвечает за сервер Matrix (matrix.example.com.). При использовании этого способа Matrix сервер должен использовать сертификат вашего домена, используемого в учётных записях пользователей (example.com).
+
+Для использования второго способа требуется настроить выдачу JSON ответа по адресу `/.well-known/matrix/server` на домене, который используется в учётных записях пользователей:
+
+```json
+{
+    "m.server": "matrix.example.com:8448"
+}
+```
+
+В ответе должен содержаться парамер `m.server`, который указывает на имя домена и порт сервера. Реализовать подобный ответ на сервере nginx можно с помощью следующей вставки в конфигурацию хоста:
+
+```nginx
+    location /.well-known/matrix/server {
+        default_type application/json;
+        return 200 '{"m.server": "matrix.example.com:8448"}';
+    }
+```
+
+### Какой сертификат должен иметь сервер Matrix?
+
+Самым простым случаем является вариант, что ваш Matrix сервер расположен на том же домене, что и ваш веб-сервер. В таком случае вы просто пользуетесь тем же самым сертификатом, что и на веб-сервере.
+
+При использовании отдельного доменного имени для сервера, обслуживающего пользователей есть некоторые особенности. Рассмотрим вариант, когда пользователи сервера имеют адреса вида @user:example.com, а сервер расположен по адресу matrix.example.com с использованием стандартного порта 8448. Именно такой вариант приведён ранее в примерах. Для того, чтобы другие серверы могли обмениваться информацией необходимо использовать либо `/.well-known/matrix/server`, либо SRV запись в DNS. От того, что вы будете использовать зависит домен сертификата:
+
+1. при использовании SRV записи - example.com;
+2. при использовании `/.well-known/matrix/server` - matrix.example.com.
+
+При этом SRV запись имеет более низкий приоритет. Т.е. если вы добавите в DNS соответствующую запись, то в сертификате должен быть указан домен example.com, но при появлении ответа по адресу `https://example.com/.well-known/matrix/server` сертификат должен уже иметь домен matrix.example.com.
+
+Чтобы не испытывать проблем, можно выпустить сертификат для обоих доменов. Однако, в таком случае, matrix.example.com и example.com — это разные серверы, а, значит, пройти челлендж webroot на получение сертификата Let's Encrypt для example.com вы просто так не сможете, поскольку сервер matrix.example.com не сможет что-то размещать по адресу другого сервера на example.com. В таком случае можно использовать другой тип аутентификации, например, с использованием соответствующего плагина для вашего DNS провайдера. Например, получить такой сертификат через Cloudflare можно следующим образом:
+
+```bash
+certbot certonly --dns-cloudflare --dns-cloudflare-credentials /root/cloudflare.ini -d example.org,*.example.org
+```
+
+Для аутентификации необходимо предоставить ранее полученный у провайдера токен, который сохраняется в файл, например, `/root/cloudflare.ini`:
+
+```ini
+dns_cloudflare_api_token = "API_TOKEN"
+```
+
+Кроме того, использование DNS для проверки подлинности также позволяет получить Wildcard сертификат для вашего домена, как это было приведено в примере выше.
+
+### Обнаружение сервера клиентами
+
+Обнаружение сервера клиентами можно осуществить через ответ сервера по адресу `/.well-known/matrix/client`:
+
+```json
+{
+    "m.homeserver": {
+        "base_url":"https://matrix.example.com"
+    }
+}
+```
+
+Параметр `m.homeserver` говорит клиентам о местоположении сервера Matrix. В этом же ответе можно указать сервер идентификации с помощью параметра `m.indentity_server`. Подробнее об этом можно прочитать [в документации к протоколу][client_server_doc].
+
+Поскольку в качестве клиентов может использоваться веб-приложение, браузеры могут ограничить чтение файла JSON с помощью механизма безопасности CORS. Чтобы этого не происходило, необходимо в ответе добавить заголовки, разрешающие использовать эти данные на других доменах. Всё вышеописанное можно реализовать в nginx с помощью следующего фрагмента конфигурации:
+
+```nginx
+    location /.well-known/matrix/client {
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET';
+        default_type application/json;
+        return 200 '{"m.homeserver":{"base_url":"https://matrix.example.com"}}';
+    }
+```
+
+В таком случае, например, при использовании веб-клиента <https://app.element.io/> теперь достаточно ввести имя пользователя @мой_пользователь:мой_домен и клиент автоматически получит данные о сервере для вашего домена. Указав верный пароль вы уже можете присоединиться к общению не выполняя настроек сервера вручную.
+
+## Скрипт обновления веб-клиента Element
+
+Для удобства пользователей сервера можно разместить на нём веб-клиент Element. Этот клиент также имеет открытый код, как и Matrix Synapse, и может быть получен [из официального репозитория на Github][element-web-github]. Клиент может быть установлен различными способами. Можно использовать для установки и обновления клиента Element скрипт, написанный одним из участников сообщества Matrix:
+
+```bash
+#!/bin/bash
+
+###################################################################
+# Script for check new version of Element from GitHub
+# and download new version, if update is avaiable
+#
+# https://github.com/MurzNN/element-web-update
+#
+###################################################################
+
+# You can override those variables using .env file in your directory
+
+# Directory where Element files must be placed
+DIRECTORY_INSTALL=~/public_html
+
+# Directory for temp files - must be different than install directory!
+DIRECTORY_TMP=/tmp
+
+# Url to repo for check version
+VERSION_URL=https://api.github.com/repos/vector-im/element-web/releases/latest
+
+if [ -f ".env" ]; then source .env; fi
+
+VERSION_INSTALLED=`if [ -f "$DIRECTORY_INSTALL/version" ]; then cat $DIRECTORY_INSTALL/version; else echo "null"; fi`
+VERSION_LATEST=`curl -s $VERSION_URL | jq -r '.name' | sed s/v//` || { echo "Error checking last Element version!"; exit 1; }
+
+command -v curl >/dev/null 2>&1 || { echo "You need to install "curl" package for this script: sudo apt install curl"; exit 1; }
+command -v tar >/dev/null 2>&1 || { echo "You need to install "tar" package for this script: sudo apt install tar"; exit 1; }
+command -v jq >/dev/null 2>&1 || { echo "You need to install "jq" package for this script: sudo apt install jq"; exit 1; }
+
+if ( [[ -z "$VERSION_LATEST" ]] || [ "$VERSION_LATEST" == "null" ] ); then
+  echo "Error! Received bad version number from $VERSION_URL: $VERSION_LATEST"
+  exit
+fi
+
+if ( [ "$VERSION_INSTALLED" != "$VERSION_LATEST" ] ); then
+  echo "Element installed version is $VERSION_INSTALLED, in GitHub releases found fresher version: $VERSION_LATEST - updating..."
+  DL_URL=`curl -s $VERSION_URL | jq -r '.assets[0].browser_download_url'`
+  curl -L -o $DIRECTORY_TMP/element-latest.tar.gz $DL_URL || { echo "Error downloading element-latest.tar.gz"; exit 1; }
+  mkdir $DIRECTORY_TMP/element-latest/
+  tar -xf $DIRECTORY_TMP/element-latest.tar.gz --strip 1 -C $DIRECTORY_TMP/element-latest/
+  find $DIRECTORY_INSTALL/* -not -name 'config*.json' -delete
+  rm -f $DIRECTORY_INSTALL/config.sample.json
+  mv $DIRECTORY_TMP/element-latest/* $DIRECTORY_INSTALL/
+  rm -rf $DIRECTORY_TMP/element-latest
+  rm $DIRECTORY_TMP/element-latest.tar.gz
+  echo "Element succesfully updated from $VERSION_INSTALLED to $VERSION_LATEST";
+else
+  echo "Installed Element version $VERSION_INSTALLED, last is $VERSION_LATEST - no update found, exiting.";
+fi
+```
+
+Перед его использованием можно создать файл .env и указать место размещения Element, папку для временных файлов `DIRECTORY_TMP` и URL размещения дистрибутива Element `VERSION_URL`. Если вас устраивают значения по умолчанию, то можно не создавать файл .env или указывать только те переменные среды, которые вы хотите изменить, например, для ранее рассмотренных конфигураций nginx:
+
+```bash
+DIRECTORY_INSTALL=/var/www/matrix/webroot
+```
+
+Более актуальные версии скрипта можно найти [у автора в репозитории на Github][element-web-update]. Самое удобное - это клонировать репозиторий с помощью
+
+```bash
+git clone https://github.com/MurzNN/element-web-update.git /var/www/matrix/element-web-update
+```
+
+Файл .env необходимо создавать внутри папки `/var/www/matrix/element-web-update` (или той, которую вы укажете при выполнении `git clone`). Там же вы найдёте пример данного файла. Обновление скрипта можно выполнять через `git pull`. Подробнее о работе с репозиторием читайте в документации git.
+
+## Полезные ссылки
+
+1. [Git-репозиторий веб-клиента Element][element-web-github]
+2. [Git-репозиторий со скриптом обновления веб-клиента Element для сервера][element-web-update]
+3. [Документация по протоколу взаимодействия между клиентом и сервером][client_server_doc]
+4. [Конфигурирование сертификатов при использовании Synapse 1.0 (англ.)][doc-matrix-synapse-cert]
+5. [Оптимизация базы данных (англ.)][optimization]
+6. [Настройка сервера TURN (англ.)][coturn-setup-doc]
+7. [Сайт для тестирования федерации с сервером matrix.org][federationtester]
+8. [Спецификация Server-Server API][matrix-s2s]
+
+[doc-install-matrix-synapse-debian-ubuntu]: https://matrix-org.github.io/synapse/latest/setup/installation.html#debianubuntu
+
+[optimization]: https://levans.fr/shrink-synapse-database.html
+
+[element-web-github]: https://github.com/vector-im/element-web
+
+[element-web-update]: https://github.com/MurzNN/element-web-update
+
+[doc-matrix-synapse-cert]: https://github.com/matrix-org/synapse/blob/master/docs/MSC1711_certificates_FAQ.md#configuring-certificates-for-compatibility-with-synapse-100
+
+[federationtester]: https://federationtester.matrix.org/
+
+[client_server_doc]: https://matrix.org/docs/spec/client_server/latest#id175
+
+[matrix-s2s]: https://spec.matrix.org/latest/server-server-api/
+
+[coturn-setup-doc]: https://matrix-org.github.io/synapse/latest/turn-howto.html

@@ -1,0 +1,29 @@
+baseURL = "https://tavda.net/"
+languageCode = "ru-RU"
+title = "Сайт FSA"
+timezone = "Asia/Novosibirsk"
+uglyURLs = true
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[taxonomies]
+  tag = "tags"
+
+[permalinks]
+  posts = "/:slug/"
+
+[outputs]
+  home = ["HTML", "RSS", "sitemap"]
+  section = ["HTML", "RSS"]
+
+[sitemap]
+  changefreq = "daily"
+  filename = "sitemap.xml"
+  priority = 0.5
+
+[params]
+  description = "Это мой персональный сайт"
+  author = "Сергей Федотов (FSA)"

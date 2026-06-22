@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+<meta charset="utf-8">
+<title>{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}</title>
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#2A5A97">
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+{{ $styles := resources.Get "scss/main.scss" | toCSS | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin,cyrillic&display=swap' rel='stylesheet' type='text/css'>
+<link rel="canonical" href="{{ .Permalink }}">
+{{ hugo.Generator }}
+{{ if .IsHome }}
+<meta property="og:title" content="{{ .Site.Title }}">
+<meta property="og:description" content="{{ .Site.Params.description }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ .Permalink }}">
+{{ else }}
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ .Permalink }}">
+{{ with .Date }}<meta property="article:published_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
+{{ with .Lastmod }}<meta property="article:modified_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
+{{ end }}
+</head>
+<body>
+<header class="top-nav">
+    <div><a href="/">Сайт FSA</a></div>
+    <input id="menu-toggle" type="checkbox" />
+    <label class='menu-button-container' for="menu-toggle">
+        <div class='menu-button'></div>
+    </label>
+    <ul class="menu">
+    <li><a href="/blog">Блог</a></li>
+    <li><a href="/tags">Теги</a></li>
+    <li><a href="/shcc">SHCC</a></li>
+    <li><a href="/games">Игры</a></li>
+    <li><a href="/archive">Архив</a></li>
+    <li><a href="/support">Поддержать</a></li>
+    <li><a href="https://github.com/fsa/">Github</a></li>
+    </ul>
+</header>
+<main>
+{{ block "main" . }}{{ end }}
+</main>
+<footer>
+<p><a href="https://tavda.net/">Сергей Федотов (FSA)</a>, 2000-2025. E-mail: fsa@tavda.info. <a href="/gpg/fsa-public-key-ed25519.asc">GPG</a></p>
+</footer>
+</body>
+</html>

@@ -1,4 +1,5 @@
 ---
+draft: true
 layout: post
 title: Автоматическое монтирование дисков через systemd
 date: 2023-08-28 01:57:00 +0700

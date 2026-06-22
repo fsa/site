@@ -1,4 +1,5 @@
 # Composer
+draft: true
 
 Доклад с [PHP Community meetup: 4 доклада, апдейты PHP 8.3 и итоги года](https://www.youtube.com/watch?v=JyxGieyBj3k).
 

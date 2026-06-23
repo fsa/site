@@ -1,6 +1,5 @@
 ---
 title: TAYGA
-slug: "tayga"
 date: 2022-12-04 23:22:00 +0700
 tags: [IPv6, NAT64, TAYGA]
 description: Перевод описаний параметров файла конфигурации сервера трансляции NAT64 TAYGA.

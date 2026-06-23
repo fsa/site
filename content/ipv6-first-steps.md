@@ -1,6 +1,5 @@
 ---
 title: IPv6 для тех, кто знает что такое IPv4
-slug: "ipv6-first-steps"
 date: 2023-12-07 19:21:10 +0700
 tags: [IPv6]
 description: Знакомство с IPv6 для тех, кто имеет представление о сетях IP.

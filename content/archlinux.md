@@ -1,6 +1,5 @@
 ---
 title: Установка Archlinux
-slug: "archlinux"
 date: 2022-10-29 02:01:00 +0700
 tags: [Archlinux, btrfs, EFI]
 description: Ради интереса решил поставить Archlinux на btrfs на компьютер с EFI

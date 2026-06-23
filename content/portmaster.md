@@ -1,6 +1,5 @@
 ---
 title: "portmaster: управляем портами во FreeBSD"
-slug: "portmaster"
 date: 2011-02-19 14:21:00 +0500
 tags: [FreeBSD]
 description: Опыт перехода от portupgrade к portmaster во FreeBSD

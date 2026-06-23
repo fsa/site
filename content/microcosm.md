@@ -1,6 +1,5 @@
 ---
 title: Microcosm и переход с lighttpd на nginx
-slug: "microcosm"
 date: 2012-03-20 18:29:00 +0500
 tags: [Microcosm, PHP, nginx, OpenStreetMap]
 description: Создание собственного локального сервера OpenStreetMap на базе Microcosm

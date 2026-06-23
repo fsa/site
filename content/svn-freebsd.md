@@ -1,6 +1,5 @@
 ---
 title: Переходим на subversion для обновления FreeBSD
-slug: "svn-freebsd"
 date: 2012-10-09 07:28:00 +0500
 tags: [FreeBSD, ports, subversion]
 description: Заметка о переходе обновлений на систему контроля версий subversion для обновления ports и исходного кода мира и ядра во FreeBSD

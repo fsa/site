@@ -1,6 +1,5 @@
 ---
 title: Установка сервера Matrix Synapse
-slug: "matrix-podman"
 date: 2023-02-10 04:58:00 +0700
 tags: [Matrix, Synapse, Podman]
 description: Статья по установке и настройке собственного Matrix сервера с помощью системы контейнеризации Podman

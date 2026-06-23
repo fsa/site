@@ -1,6 +1,5 @@
 ---
 title: Памятка по MySQL/MariaDB
-slug: "mysql-install"
 date: 2018-04-23 07:33:00 +0700
 tags: [MariaDB, MySQL]
 description: Шпаргалка по первоначальной настройке сервера MySQL

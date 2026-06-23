@@ -1,6 +1,5 @@
 ---
 title: Сетевые пространства имён и Wireguard
-slug: "wireguard-netns"
 date: 2024-11-08 11:50:00 +0700
 tags: [VPN, Wireguard]
 description: Шпаргалка по настройке VPN на базе Wireguard с использованием сетевых пространств имён

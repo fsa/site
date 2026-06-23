@@ -1,6 +1,5 @@
 ---
 title: Загружаем загрузчик linux по сети
-slug: "pxelinux"
 date: 2014-02-20 09:23:00 +0500
 tags: [PXE, Linux]
 description: Заметка о том как обеспечить загрузку загрузчика Linux по сети

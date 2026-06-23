@@ -1,6 +1,5 @@
 ---
 title: Использование NetworkManager из командной строки
-slug: "networkmanager"
 date: 2022-08-17 01:00:00 +0700
 tags: [NetworkManager]
 description: Шпаргалка по управлению NetworkManager из командной строки

@@ -1,6 +1,5 @@
 ---
 title: Прошивка Routerich
-slug: "routerich"
 date: 2024-12-25 00:25:50 +0700
 tags: [Интернет]
 description: Особенности маршрутизатора Routerich AX3000 и его прошивки.

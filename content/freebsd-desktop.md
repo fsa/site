@@ -1,6 +1,5 @@
 ---
 title: Установка FreeBSD в качестве рабочей станции
-slug: "freebsd-desktop"
 date: 2006-11-26 20:00:00 +0500
 lastmod: 2022-08-08T23:59:00+05:00
 tags: [FreeBSD]

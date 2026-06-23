@@ -1,6 +1,5 @@
 ---
 title: Шпаргалка по Git
-slug: "git"
 date: 2021-05-06 02:12:45 +0700
 tags: [Git]
 description: Шпаргалка по системе контроля версий Git

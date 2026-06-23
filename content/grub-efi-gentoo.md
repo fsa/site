@@ -1,6 +1,5 @@
 ---
 title: Установка GRUB2 и загрузка Gentoo через EFI
-slug: "grub-efi-gentoo"
 date: 2014-12-15 08:19:00 +0500
 tags: [Grub, EFI, Gentoo]
 description: Памятка по установке GRUB2 и загрузке через EFI в Gentoo x64

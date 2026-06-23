@@ -1,6 +1,5 @@
 ---
 title: Настройка ssl на сервере nginx
-slug: "nginx-ssl"
 date: 2016-05-06 18:00:00 +0500
 tags: [nginx, TLS]
 description: Заметка об установке сертификатов StartSSL на свой сервер nginx

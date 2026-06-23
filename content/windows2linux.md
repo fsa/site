@@ -1,6 +1,5 @@
 ---
 title: О переходе с Windows на Linux
-slug: "windows2linux"
 date: 2018-04-29 20:11:00 +0700
 tags: [Windows, Linux]
 description: Делюсь опытом перехода на операционную систему Linux в качестве основной системы для своего ПК

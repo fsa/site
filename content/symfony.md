@@ -1,6 +1,5 @@
 ---
 title: Symfony
-slug: "symfony"
 date: 2024-02-14 00:10:55 +0700
 tags: [PHP]
 description: PHP фреймворк Symfony.

@@ -1,6 +1,5 @@
 ---
 title: zsh
-slug: "zsh"
 date: 2025-10-03 17:07:00 +0700
 tags: [zsh, linux, shell]
 description: Настройка оболочки ZSH без использования Oh My Zsh.

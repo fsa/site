@@ -1,6 +1,5 @@
 ---
 title: Настройка OpenVPN
-slug: "openvpn"
 date: 2023-04-21 00:59:00 +0700
 tags: [VPN, OpenVPN]
 description: Простая настройка сервера и клиента OpenVPN 2.6.

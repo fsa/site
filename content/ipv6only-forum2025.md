@@ -1,6 +1,5 @@
 ---
 title: "Призыв к решительным действиям в 2025 году: переходим на IPv6-Only"
-slug: "ipv6only-forum2025"
 date: 2025-11-15 00:18:30 +0700
 tags: [IPv6]
 description: Перевод призыва IPv6 Forum к переходу на IPv6-Only сети.

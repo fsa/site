@@ -1,6 +1,5 @@
 ---
 title: Верстаем диплом в LaTeX
-slug: "latex-diplom"
 date: 2011-03-18 04:44:00 +0700
 tags: [LaTeX]
 description: Опыт использования LaTeX при написании дипломной работы в ВУЗе с использованием пакета eskdx

@@ -1,6 +1,5 @@
 ---
 title: Настойка связки FreeBSD 8.2+Asterisk 1.8.5+модем Huawei E150
-slug: "asterisk-huawei-e150"
 date: 2011-07-22 16:07:00 +0500
 tags: [Asterisk, FreeBSD, Huawei E150]
 description: Заметка о настройке модема Huawei E150 в качестве GSM шлюза на сервере Asterisk

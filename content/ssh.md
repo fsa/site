@@ -1,6 +1,5 @@
 ---
 title: SSH
-slug: "ssh"
 date: 2024-03-17 05:14:00 +0700
 tags: [SSH, Linux]
 description: Небольшая заметка о том, как настраивать и использовать SSH.

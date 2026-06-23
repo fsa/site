@@ -1,6 +1,5 @@
 ---
 title: Как я ставил Windows без DVD/CD, флешки и сети
-slug: "windows-install-nocd"
 date: 2015-11-25 15:17:00 +0500
 tags: [Windows, Linux, VirtualBox]
 description: Установка операционной системы на примере установки Windows с использованием работающей ОС с установленным VirtualBox

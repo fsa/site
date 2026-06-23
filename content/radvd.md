@@ -1,6 +1,5 @@
 ---
 title: Настройка RADVD
-slug: "radvd"
 date: 2023-02-17 00:42:00 +0700
 tags: [IPv6, RADVD]
 description: Заметка о настройке демона запросов маршрутизаторов RADVD

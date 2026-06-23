@@ -1,6 +1,5 @@
 ---
 title: Миграция с FreeBSD на Linux
-slug: "freebsd2linux-migration"
 date: 2010-10-02 04:05:00 +0500
 tags: [FreeBSD, Linux, Ubuntu]
 description: Заметка о переносе файлов из FreeBSD в Ubuntu с использованием внешнего HDD, тонкости процесса

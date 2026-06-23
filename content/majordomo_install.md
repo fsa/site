@@ -1,6 +1,5 @@
 ---
 title: Умный дом на основе Majordomo
-slug: "majordomo-install"
 date: 2018-04-03 17:43:00 +0700
 tags: [MajorDoMo, nginx]
 description: "Черновик: Установка контроллера сервера умного дома MajorDoMo"

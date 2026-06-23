@@ -1,6 +1,5 @@
 ---
 title: Установка PostgreSQL на FreeBSD
-slug: "postgresql_install_freebsd"
 date: 2010-10-02 20:50:00 +0500
 tags: [FreeBSD, PostgreSQL]
 description: Заметка об установке PostgreSQL на ОС FreeBSD, создание и управление пользователями базы данных, базами данных

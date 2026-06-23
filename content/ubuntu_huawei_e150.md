@@ -1,6 +1,5 @@
 ---
 title: Настройка модема Huawei E150 в Ubuntu
-slug: "ubuntu-huawei-e150"
 date: 2010-09-23 05:05:00 +0500
 tags: [Huawei E150, Ubuntu]
 description: Статья о настройке модема Huawei E150 для использования его в качестве модема в ОС Ubuntu

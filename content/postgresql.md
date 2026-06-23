@@ -1,6 +1,5 @@
 ---
 title: Установка PostgreSQL
-slug: "postgresql"
 date: 2022-06-15 18:58:00 +0700
 tags: [PostgreSQL]
 description: Сборник рецептов по администрированию сервера PostgreSQL

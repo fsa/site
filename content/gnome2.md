@@ -1,6 +1,5 @@
 ---
 title: "Gnome/Unity: меняем местоположение кнопок управления окном"
-slug: "gnome2"
 date: 2011-10-16 03:20:00 +0500
 tags: [Gnome, Unity]
 description: Управление расположением кнопок управления окном в Gnome 2 и Unity

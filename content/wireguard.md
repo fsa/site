@@ -1,6 +1,5 @@
 ---
 title: Шпаргалка по Wireguard
-slug: "wireguard"
 date: 2022-04-10 02:51:00 +0700
 tags: [VPN, Wireguard, Firewalld]
 description: Шпаргалка по настройке VPN на базе Wireguard

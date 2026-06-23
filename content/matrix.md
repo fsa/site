@@ -1,6 +1,5 @@
 ---
 title: Опыт установки сервера Matrix Synapse
-slug: "matrix"
 date: 2020-03-31 13:27:00 +0700
 tags: [Matrix, Synapse, nginx]
 description: Статья по установке и настройке собственного Matrix сервера

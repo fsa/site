@@ -1,6 +1,5 @@
 ---
 title: Настраиваем аудиоконференции в Asterisk на FreeBSD
-slug: "asterisk-audioconf"
 date: 2011-01-19 11:58:00 +0500
 tags: [Asterisk, FreeBSD]
 description: Заметка о настройке Asterisk 1.8.2 на FreeBSD 8.1 в качестве сервера аудиоконференций с использованием модуля app_meetme

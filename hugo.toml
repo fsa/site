@@ -3,6 +3,7 @@ locale = "ru-RU"
 title = "Сайт FSA"
 timezone = "Asia/Novosibirsk"
 uglyURLs = false
+enableRobotsTXT = true
 
 [security]
   [security.funcs]

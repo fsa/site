@@ -4,6 +4,10 @@ title = "Сайт FSA"
 timezone = "Asia/Novosibirsk"
 uglyURLs = false
 
+[security]
+  [security.funcs]
+    getenv = ['^HUGO_', '^CI$', '^GITHUB_ACTIONS$']
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
@@ -24,3 +28,4 @@ uglyURLs = false
 [params]
   description = "Это мой персональный сайт"
   author = "Сергей Федотов (FSA)"
+  canonicalHost = "https://tavda.org"

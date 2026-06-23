@@ -136,7 +136,7 @@ class IndexController extends AbstractController
 
 ## Использование баз данных
 
-Подробности по использованию Doctrine можно найти на [официальном сайте Symfony[(https://symfony.com/doc/current/doctrine.html).
+Подробности по использованию Doctrine можно найти на [официальном сайте Symfony](https://symfony.com/doc/current/doctrine.html).
 
 Установим пакет, который подключил все необходимые для работы Doctrine ORM компоненты, в том числе для работы с миграциями.
 

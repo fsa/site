@@ -1,0 +1,15 @@
+{{ define "main" }}
+<h2>Последние обновления блога</h2>
+
+{{ $posts := where .Site.RegularPages "Section" "" }}
+{{ $posts = where $posts ".Params.tags" "!=" nil }}
+{{ range first 10 $posts.ByLastmod.Reverse }}
+<p>{{ if and .Lastmod (ne .Lastmod .Date) }}{{ .Lastmod.Format "02.01.2006" }}{{ else }}{{ .Date.Format "02.01.2006" }}{{ end }}:&nbsp;<a href="{{ .RelPermalink }}">{{ .Title }}</a>
+{{ if and .Lastmod (ne .Lastmod .Date) }} <span class="post-date">(обновлено)</span>{{ end }}
+<br>{{ .Description }}</p>
+{{ end }}
+
+<p><a href="/blog/">Все статьи блога &rarr;</a></p>
+
+{{ .Content }}
+{{ end }}

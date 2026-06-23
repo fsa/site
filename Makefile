@@ -13,14 +13,12 @@ backup-tags:
 	done
 
 serve:
-	touch ./Gemfile.lock
-	chmod a+w ./Gemfile.lock
-	podman run -it --rm --name jekyll \
-		-v ./:/srv/jekyll:rw,slave,Z \
-		--publish 4000:4000 \
-		-e JEKYLL_UID=1000 \
-		-e JEKYLL_GID=1000 \
-		docker.io/jekyll/jekyll:4 \
-		jekyll serve --drafts
+	hugo server --bind 0.0.0.0 --port 1313 -D
 
-.PHONY: backup
+build:
+	hugo --minify
+
+clean:
+	rm -rf public/ resources/
+
+.PHONY: backup backup-tags serve build clean

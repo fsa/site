@@ -1,0 +1,20 @@
+{{ define "main" }}
+<div class="post-date">{{ .Date.Format "02.01.2006" }}</div>
+{{ if and .Lastmod (ne .Lastmod .Date) }}
+<div class="post-date">Обновлено: {{ .Lastmod.Format "02.01.2006" }}</div>
+{{ end }}
+<h1>{{ .Title }}</h1>
+{{ .Content }}
+{{ if .Params.tags }}
+<p>Теги:
+{{ range $index, $tag := .Params.tags }}
+{{ if $index }}, {{ end }}<a href="{{ "tags/" | relURL }}{{ $tag | urlize }}/">{{ $tag }}</a>
+{{ end }}
+</p>
+{{ end }}
+<hr>
+<p>Обратите внимание, что заметки могут обновляться со временем. Это может быть как исправление найденных ошибок, так и доработка содержания с целью более полного раскрытия темы. Информация об изменениях доступна <a href="https://github.com/fsa/site">в репозитории на github</a>. Там же вы можете оставить в <a href="https://github.com/fsa/site/issues">Issue</a> ваши замечания по данной заметке.</p>
+<hr>
+<p>Если данная заметка оказалась вам полезной, можете <a href="/support/">поблагодарить автора финансово</a>.</p>
+<hr>
+{{ end }}

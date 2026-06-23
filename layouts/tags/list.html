@@ -1,0 +1,16 @@
+{{ define "main" }}
+{{ if .Data.Term }}
+<h1>{{ .Title }}</h1>
+{{ range .Pages.ByDate.Reverse }}
+<p><a href="{{ .RelPermalink }}">{{ .Title }}</a> ({{ .Date.Format "02.01.2006" }})</p>
+{{ end }}
+{{ else }}
+<h1>Заметки по ключевым словам</h1>
+{{ range .Site.Taxonomies.tags.ByCount }}
+  <h3 id="{{ .Page.Title }}">{{ .Page.Title }}</h3>
+  {{ range .Pages }}
+    <p><a href="{{ .RelPermalink }}">{{ .Title }}</a> ({{ .Date.Format "02.01.2006" }})</p>
+  {{ end }}
+{{ end }}
+{{ end }}
+{{ end }}

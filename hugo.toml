@@ -1,4 +1,4 @@
-baseURL = "https://tavda.net/"
+baseURL = "/"
 locale = "ru-RU"
 title = "Сайт FSA"
 timezone = "Asia/Novosibirsk"

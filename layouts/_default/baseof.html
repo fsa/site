@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}">
+<html lang="{{ with .Site.Language }}{{ .LanguageCode }}{{ end }}">
 <head>
 <meta charset="utf-8">
 <title>{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}</title>

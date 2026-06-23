@@ -2,7 +2,7 @@
 title: Я установил себе Fedora
 slug: "fedora-first-steps"
 date: 2021-04-10 00:33:45 +0700
-lastmod: 2022-02-22 22:02 +0500
+lastmod: 2022-02-22T22:02:00+05:00
 tags: [Linux, Fedora, nginx, PostgreSQL, PHP, Firewalld]
 description: Делюсь опытом по настройке Fedora
 ---

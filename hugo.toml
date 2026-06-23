@@ -1,5 +1,5 @@
 baseURL = "https://tavda.net/"
-languageCode = "ru-RU"
+locale = "ru-RU"
 title = "Сайт FSA"
 timezone = "Asia/Novosibirsk"
 uglyURLs = false

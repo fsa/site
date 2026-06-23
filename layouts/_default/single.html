@@ -10,7 +10,7 @@
 {{ if .Params.tags }}
 <p>Теги:
 {{ range $index, $tag := .Params.tags }}
-{{ if $index }}, {{ end }}<a href="{{ "tags/" | absURL }}{{ $tag | urlize }}/">{{ $tag }}</a>
+{{ if $index }}, {{ end }}<a href="{{ "tags/" | relURL }}{{ $tag | urlize }}/">{{ $tag }}</a>
 {{ end }}
 </p>
 {{ end }}

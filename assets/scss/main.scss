@@ -69,6 +69,11 @@ main {
         text-align: justify;
     }
 
+    pre {
+        overflow-x: auto;
+        max-width: 100%;
+    }
+
     img {
         max-width: 99%;
         border: 2px $theme-colors-primary solid;

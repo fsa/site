@@ -1,4 +1,4 @@
-baseURL = "https://tavda.net/"
+baseURL = "https://tavda.org"
 locale = "ru-RU"
 title = "Сайт FSA"
 timezone = "Asia/Novosibirsk"
@@ -28,4 +28,3 @@ uglyURLs = false
 [params]
   description = "Это мой персональный сайт"
   author = "Сергей Федотов (FSA)"
-  canonicalHost = "https://tavda.org"

@@ -28,3 +28,4 @@ uglyURLs = false
 [params]
   description = "Это мой персональный сайт"
   author = "Сергей Федотов (FSA)"
+  canonicalHost = "https://tavda.org"

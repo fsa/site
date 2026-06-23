@@ -125,6 +125,28 @@ footer {
     color: #b0b0b0
 }
 
+.migration-banner {
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+
+    h2 {
+        margin-top: 0;
+        font-size: 1.4rem;
+
+        &:after {
+            display: none;
+        }
+    }
+
+    p {
+        margin: 0.5rem 0 0 0;
+    }
+}
+
 .top-nav {
     display: flex;
     flex-direction: row;

@@ -4,6 +4,10 @@ title = "Сайт FSA"
 timezone = "Asia/Novosibirsk"
 uglyURLs = false
 
+[security]
+  [security.funcs]
+    getenv = ['^HUGO_', '^CI$', '^GITHUB_ACTIONS$']
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]

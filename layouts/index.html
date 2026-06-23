@@ -1,4 +1,10 @@
 {{ define "main" }}
+{{ if eq (getenv "GITHUB_ACTIONS") "true" }}
+<div class="migration-banner">
+<h2>Это зеркало сайта</h2>
+<p>Вы попали на зеркало моего основного сайта, который расположен по адресу <a href="https://tavda.org/">tavda.org</a>. Этот сайт полностью копирует содержимое основного сайта, но расположен на другом хостинге и не зависит от основного сайта.</p>
+</div>
+{{ end }}
 <h2>Последние обновления блога</h2>
 
 {{ $posts := where .Site.RegularPages "Section" "" }}

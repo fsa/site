@@ -99,7 +99,7 @@ a {
 
     > li > a {
         color: rgba(255, 255, 255, 0.85);
-        padding: 0.5rem 1rem;
+        padding: 0.6rem 1rem 0.4rem;
         border-radius: 6px;
         transition: all 0.2s;
         font-size: 0.9rem;
@@ -163,12 +163,19 @@ a {
     transform: rotate(-45deg);
 }
 
-main {
-    flex: 1;
-    max-width: 900px;
+.content-wrapper {
+    display: flex;
+    gap: 2rem;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 2rem 1.5rem;
     width: 100%;
+}
+
+main {
+    flex: 1;
+    min-width: 0;
+    max-width: 900px;
 
     h1 {
         font-size: 2rem;
@@ -406,6 +413,44 @@ footer {
     }
 }
 
+.news-list {
+    margin-bottom: 2rem;
+}
+
+.news-item {
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid $color-border;
+    align-items: baseline;
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.news-date {
+    color: $color-text-secondary;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    min-width: 80px;
+}
+
+.news-text {
+    color: $color-text;
+    font-size: 0.95rem;
+    line-height: 1.5;
+
+    a {
+        color: $color-primary;
+        font-weight: 500;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
 .section-title {
     font-size: 1.5rem;
     font-weight: 600;
@@ -430,6 +475,44 @@ footer {
     max-width: 100%;
     border-radius: 8px;
     border: 1px solid $color-border;
+}
+
+.sidebar {
+    width: 220px;
+    flex-shrink: 0;
+}
+
+.tag-cloud {
+    h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: $color-text;
+    }
+}
+
+.tag-cloud-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag-cloud-item {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    background: $color-accent;
+    color: $color-text;
+    border-radius: 4px;
+    font-size: 0.8rem !important;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+
+    &:hover {
+        background: $color-primary;
+        color: white;
+        text-decoration: none;
+    }
 }
 
 @media (max-width: 768px) {
@@ -497,8 +580,13 @@ footer {
         border-bottom: none;
     }
 
-    main {
+    .content-wrapper {
+        flex-direction: column;
         padding: 1.5rem 1rem;
+    }
+
+    main {
+        padding: 0;
     }
 
     h1 {
@@ -507,6 +595,21 @@ footer {
 
     .post-card {
         padding: 1rem;
+    }
+
+    .news-item {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .tag-cloud {
+        border-top: 1px solid $color-border;
+        padding-top: 1.5rem;
+        margin-top: 1rem;
     }
 
     footer p {

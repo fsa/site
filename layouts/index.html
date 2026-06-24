@@ -5,6 +5,7 @@
 <p>Вы попали на зеркало моего основного сайта, который расположен по адресу <a href="https://tavda.org/">tavda.org</a>. Этот сайт полностью копирует содержимое основного сайта, но расположен на другом хостинге и не зависит от основного сайта.</p>
 </div>
 {{ end }}
+
 <h2 class="section-title">Что нового в блоге</h2>
 
 {{ $posts := where .Site.RegularPages "Section" "" }}
@@ -19,5 +20,23 @@
 
 <a href="/blog/" class="page-link">Все статьи блога &rarr;</a>
 
-{{ .Content }}
+<h2>Что нового на сайте</h2>
+
+<div class="news-list">
+{{ range site.Data.news }}
+<div class="news-item">
+  <time class="news-date" datetime="{{ .date }}">{{ dateFormat "02.01.2006" .date }}</time>
+  <span class="news-text">
+    {{ .text }}
+    {{ if .link }}<a href="{{ .link }}">Подробнее &rarr;</a>{{ end }}
+    {{ if .links }}
+      {{- $last := last 1 .links -}}
+      {{- range .links -}}
+        <a href="{{ .url }}">{{ .text }}</a>{{- if ne .text (index $last 0).text }}, {{ end -}}
+      {{- end -}}
+    {{ end }}
+  </span>
+</div>
+{{ end }}
+</div>
 {{ end }}

@@ -1,0 +1,21 @@
+<aside class="sidebar">
+<div class="tag-cloud">
+<h3>Теги</h3>
+<div class="tag-cloud-items">
+{{ $maxCount := 1 }}
+{{ range .Site.Taxonomies.tags }}
+  {{ if gt .Count $maxCount }}{{ $maxCount = .Count }}{{ end }}
+{{ end }}
+{{ range .Site.Taxonomies.tags.ByCount }}
+  {{ $ratio := div (mul .Count 100) $maxCount }}
+  {{ $size := 0.6 }}
+  {{ if gt $ratio 80 }}{{ $size = 1.4 }}
+  {{ else if gt $ratio 60 }}{{ $size = 1.2 }}
+  {{ else if gt $ratio 40 }}{{ $size = 1.0 }}
+  {{ else if gt $ratio 20 }}{{ $size = 0.8 }}
+  {{ end }}
+<a href="{{ .Page.RelPermalink }}" class="tag-cloud-item" style="font-size: {{ $size }}rem;">{{ .Page.Title }}</a>
+{{ end }}
+</div>
+</div>
+</aside>

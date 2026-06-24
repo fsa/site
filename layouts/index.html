@@ -5,17 +5,19 @@
 <p>Вы попали на зеркало моего основного сайта, который расположен по адресу <a href="https://tavda.org/">tavda.org</a>. Этот сайт полностью копирует содержимое основного сайта, но расположен на другом хостинге и не зависит от основного сайта.</p>
 </div>
 {{ end }}
-<h2>Что нового в блоге</h2>
+<h2 class="section-title">Что нового в блоге</h2>
 
 {{ $posts := where .Site.RegularPages "Section" "" }}
 {{ $posts = where $posts ".Params.tags" "!=" nil }}
 {{ range first 10 $posts.ByLastmod.Reverse }}
-<p>{{ if and .Lastmod (ne .Lastmod .Date) }}{{ .Lastmod.Format "02.01.2006" }}{{ else }}{{ .Date.Format "02.01.2006" }}{{ end }}:&nbsp;<a href="{{ .RelPermalink }}">{{ .Title }}</a>
-{{ if and .Lastmod (ne .Lastmod .Date) }} <span class="post-date">(обновлено)</span>{{ end }}
-<br>{{ .Description }}</p>
+<div class="post-card">
+<div class="post-date">{{ if and .Lastmod (ne .Lastmod .Date) }}{{ .Lastmod.Format "02.01.2006" }}{{ else }}{{ .Date.Format "02.01.2006" }}{{ end }}{{ if and .Lastmod (ne .Lastmod .Date) }} <span class="post-updated">(обновлено)</span>{{ end }}</div>
+<h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+<p class="post-description">{{ .Description }}</p>
+</div>
 {{ end }}
 
-<p><a href="/blog/">Все статьи блога &rarr;</a></p>
+<a href="/blog/" class="page-link">Все статьи блога &rarr;</a>
 
 {{ .Content }}
 {{ end }}

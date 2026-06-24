@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <title>{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}</title>
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#2A5A97">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#334155">
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 {{ $styles := resources.Get "scss/main.scss" | toCSS | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href='//fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin,cyrillic&display=swap' rel='stylesheet' type='text/css'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="canonical" href="{{ .Permalink }}">
 {{ hugo.Generator }}
 {{ if .IsHome }}
@@ -28,11 +29,12 @@
 {{ end }}
 </head>
 <body>
-<header class="top-nav">
+<header>
+    <div class="top-nav">
     <div><a href="/">Сайт FSA</a></div>
     <input id="menu-toggle" type="checkbox" />
-    <label class='menu-button-container' for="menu-toggle">
-        <div class='menu-button'></div>
+    <label class="menu-button-container" for="menu-toggle">
+        <div class="menu-button"></div>
     </label>
     <ul class="menu">
     <li><a href="/blog/">Блог</a></li>
@@ -42,6 +44,7 @@
     <li><a href="/support/">Поддержать</a></li>
     <li><a href="https://github.com/fsa/">Github</a></li>
     </ul>
+    </div>
 </header>
 <main>
 {{ block "main" . }}{{ end }}

@@ -1,24 +1,24 @@
 {{ define "main" }}
 {{ if .Date }}
-<div class="post-date">{{ .Date.Format "02.01.2006" }}</div>
-{{ if and .Lastmod (ne .Lastmod .Date) }}
-<div class="post-date">Обновлено: {{ .Lastmod.Format "02.01.2006" }}</div>
-{{ end }}
+<div class="post-date">{{ .Date.Format "02.01.2006" }}{{ if and .Lastmod (ne .Lastmod .Date) }} · Обновлено: {{ .Lastmod.Format "02.01.2006" }}{{ end }}</div>
 {{ end }}
 <h1>{{ .Title }}</h1>
 {{ .Content }}
 {{ if .Params.tags }}
-<p>Теги:
+<div class="post-card" style="margin-top:2rem;border-left-color:#6b7280;">
+<p style="margin:0;">Теги:
 {{ range $index, $tag := .Params.tags }}
 {{ if $index }}, {{ end }}<a href="{{ "tags/" | relURL }}{{ $tag | urlize }}/">{{ $tag }}</a>
 {{ end }}
 </p>
+</div>
 {{ end }}
 {{ if .Date }}
-<hr>
-<p>Обратите внимание, что заметки могут обновляться со временем. Это может быть как исправление найденных ошибок, так и доработка содержания с целью более полного раскрытия темы. Информация об изменениях доступна <a href="https://github.com/fsa/site">в репозитории на github</a>. Там же вы можете оставить в <a href="https://github.com/fsa/site/issues">Issue</a> ваши замечания по данной заметке.</p>
-<hr>
-<p>Если данная заметка оказалась вам полезной, можете <a href="/support/">поблагодарить автора финансово</a>.</p>
-<hr>
+<div class="post-card" style="margin-top:1rem;border-left-color:#6b7280;">
+<p style="margin:0;">Обратите внимание, что заметки могут обновляться со временем. Информация об изменениях доступна <a href="https://github.com/fsa/site">в репозитории на github</a>. Там же вы можете оставить в <a href="https://github.com/fsa/site/issues">Issue</a> ваши замечания по данной заметке.</p>
+</div>
+<div class="post-card" style="margin-top:1rem;border-left-color:#10b981;">
+<p style="margin:0;">Если данная заметка оказалась вам полезной, можете <a href="/support/">поблагодарить автора финансово</a>.</p>
+</div>
 {{ end }}
 {{ end }}

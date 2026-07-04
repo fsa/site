@@ -1,0 +1,16 @@
+{{ define "main" }}
+{{ if .Date }}
+<div class="post-date">{{ .Date.Format "02.01.2006" }}{{ if and .Lastmod (ne .Lastmod .Date) }} · Обновлено: {{ .Lastmod.Format "02.01.2006" }}{{ end }}</div>
+{{ end }}
+<h1>{{ .Title }}</h1>
+{{ .Content }}
+{{ if .Params.tags }}
+<div class="post-card" style="margin-top:2rem;border-left-color:#6b7280;">
+<p style="margin:0;">Теги:
+{{ range $index, $tag := .Params.tags }}
+{{ if $index }}, {{ end }}<a href="{{ "tags/" | relURL }}{{ $tag | urlize }}/">{{ $tag }}</a>
+{{ end }}
+</p>
+</div>
+{{ end }}
+{{ end }}

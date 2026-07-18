@@ -23,7 +23,7 @@
 <h2>Что нового на сайте</h2>
 
 <div class="news-list">
-{{ range site.Data.news }}
+{{ range hugo.Data.news }}
 <div class="news-item">
   <time class="news-date" datetime="{{ .date }}">{{ dateFormat "02.01.2006" .date }}</time>
   <span class="news-text">

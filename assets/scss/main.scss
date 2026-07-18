@@ -50,19 +50,6 @@ header {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-* {
-    box-sizing: border-box;
-}
-
-a {
-    color: $color-primary;
-    text-decoration: none;
-    transition: color 0.2s;
-
-    &:hover {
-        text-decoration: underline;
-    }
-}
 
 .top-nav {
     display: flex;
